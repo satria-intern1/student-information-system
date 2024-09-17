@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\RedirectResponse;
 
 class LoginController extends Controller
 {
@@ -12,8 +14,27 @@ class LoginController extends Controller
     public function index()
     {
         //
+        return view('login');
+    }
+
+    public function authenticate(Request $request): RedirectResponse
+    {
+        $credentials = $request->validate([
+            'username' => ['required', 'min:6'],
+            'password' => ['required',],
+        ]);
+
+        if (Auth::attempt($credentials)) {
+            $request->session()->regenerate();
+ 
+            return redirect()->intended('dashboard');
+        }
+ 
+        return back()->with([
+            'error' => 'There was an error with your login. Please check your credentials and try again.',
+        ]);
     }
 
 
-    
+
 }

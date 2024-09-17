@@ -5,17 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
+use Illuminate\Auth\Authenticatable;
 
-class User extends Model
+class User extends Model implements AuthenticatableContract
 {
-    
-    
-    
-    use HasFactory;
-    
-    protected $guarded  = 'id';
-    // protected $with = ['kaprodi' , 'dosen', 'mahasiswa'];
+    use HasFactory, Authenticatable;
 
+    protected $guarded = ['id'];
 
     public function kaprodi(): HasOne
     {
@@ -31,6 +28,4 @@ class User extends Model
     {
         return $this->hasOne(Mahasiswa::class);
     }
-
-
 }

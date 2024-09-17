@@ -8,6 +8,11 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/alpinejs/3.13.0/cdn.min.js"></script>
 </head>
 <body class="h-full">
+  @if (session('error'))
+    <x-modal-error>
+        {{ session('error') }}
+    </x-modal-error>
+  @endif
 
     <div class="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
         <div class="sm:mx-auto sm:w-full sm:max-w-sm">
@@ -16,12 +21,21 @@
         </div>
       
         <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-          <form class="space-y-6" action="#" method="POST">
+          <form class="space-y-6" action="/" method="POST">
+            @csrf
             <div>
-              <label for="username" class="block text-sm font-medium leading-6 text-gray-900">username</label>
+              <label for="username" class="block text-sm font-medium leading-6 text-gray-900">Username</label>
               <div class="mt-2">
-                <input id="username" autocomplete="none" name="username" type="username" required class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                <input autofocus id="username" autocomplete="none" name="username" type="username" required value='{{ old('username') }}'
+                  class=" @error('username') ring-3 ring ring-red-600 @enderror p-2 w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
               </div>
+
+                <p class="text-red-500 text-sm ">
+                  @error('username')
+                    {{ $message }}
+                  @enderror
+                </p>        
+              
             </div>
       
             <div>
