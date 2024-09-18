@@ -35,6 +35,24 @@ class LoginController extends Controller
         ]);
     }
 
+    public function logout(Request $request): RedirectResponse
+    {
+        if ($request->isMethod('get')) {
+            return redirect('/dashboard');
+        }
+
+        Auth::logout();
+    
+        $request->session()->invalidate();
+    
+        $request->session()->regenerateToken();
+        
+        return redirect('/');
+
+    }
+
+
+
 
 
 }
