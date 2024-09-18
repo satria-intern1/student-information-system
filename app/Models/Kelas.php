@@ -12,7 +12,7 @@ class Kelas extends Model
     use HasFactory;
 
 
-    protected $guarded = ['id'];
+    protected $fillable = ['name', 'jumlah'];
 
 
     public function dosen(): HasOne

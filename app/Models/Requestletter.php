@@ -10,7 +10,7 @@ class Requestletter extends Model
 {
     use HasFactory;
 
-    protected $guarded = ['id'];
+    protected $fillable = ['kelas_id', 'mahasiswa_id', 'keterangan'];
 
     public function kelas(): BelongsTo
     {

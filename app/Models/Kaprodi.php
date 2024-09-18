@@ -10,7 +10,7 @@ class Kaprodi extends Model
 {
     use HasFactory;
 
-    protected $guarded = ['id'];
+    protected $fillable = ['kode_dosen', 'nip', 'name', 'user_id'];
 
 
 

@@ -12,7 +12,7 @@ class User extends Model implements AuthenticatableContract
 {
     use HasFactory, Authenticatable;
 
-    protected $guarded = ['id'];
+    protected $fillable = ['username' , 'email', 'password', 'role',];
 
     public function kaprodi(): HasOne
     {

@@ -22,14 +22,16 @@ class DatabaseSeeder extends Seeder
         // Seed Kelas
         $kelasIds = $this->seedKelas();
 
+         // Seed Kaprodi
+         $this->seedKaprodis($userIds);
+
         // Seed Mahasiswas
         $this->seedMahasiswas($userIds, $kelasIds);
 
         // Seed Dosens
         $this->seedDosens($userIds, $kelasIds);
 
-        // Seed Kaprodi
-        $this->seedKaprodis($userIds);
+       
     }
 
     private function seedUsers()
@@ -176,8 +178,8 @@ class DatabaseSeeder extends Seeder
                 
             ],
             [
-                'user_id' => $userIds[3],
-                                            //assuming in dont have class  
+                'user_id' => $userIds[0],
+                'kelas_id' => null,    //assuming in dont have class  
                 'kode_dosen' => 22222223,
                 'nip' => 22221113 ,
                 'name' => 'Si Dosen Sesat',
@@ -194,7 +196,7 @@ class DatabaseSeeder extends Seeder
     {
         $kaprodis = [
             [
-                'user_id' => $userIds[0], 
+                'user_id' => $userIds[3], 
                 'kode_dosen' => 10000001,
                 'nip' => 12222221,
                 'name' => 'Si Pebisnis Ulung',

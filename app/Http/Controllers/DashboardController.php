@@ -12,13 +12,29 @@ class DashboardController extends Controller
 
     public function index()
     {
-        //
         $user = auth()->user();
+        $userData = null;
 
-        return view('dashboard',[
+        //retrieve data based on role
+        switch ($user->role) {
+            case 'kaprodi':
+                $userData = $user->kaprodi;
+                break;
+            case 'dosen':
+                $userData = $user->dosen;
+                break;
+            case 'mahasiswa':
+                $userData = $user->mahasiswa;
+                break;
+            default:
+            $userData = null;
+        }       
+
+
+        return view('dashboard', [
             'title' => 'Dashboard',
-            'role' => $user,
-         ]);
-
+            'user' => $user,
+            'userData' => $userData,
+        ]);
     }
 }

@@ -10,7 +10,7 @@ class Dosen extends Model
 {
     use HasFactory;
 
-    protected $guarded = ['id'];
+    protected $fillable = ['kelas_id', 'user_id', 'kode_dosen', 'nip', 'name'];
 
 
     public function user(): BelongsTo
