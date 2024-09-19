@@ -12,6 +12,7 @@ class Dosen extends Model
 
     protected $fillable = ['kelas_id', 'user_id', 'kode_dosen', 'nip', 'name'];
 
+    // Add the $with property for default eager loading
 
     public function user(): BelongsTo
     {

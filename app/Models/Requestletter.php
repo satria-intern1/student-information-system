@@ -12,6 +12,8 @@ class Requestletter extends Model
 
     protected $fillable = ['kelas_id', 'mahasiswa_id', 'keterangan'];
 
+    // Add the $with property for default eager loading
+
     public function kelas(): BelongsTo
     {
         return $this->belongsTo(Kelas::class);

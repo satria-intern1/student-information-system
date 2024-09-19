@@ -7,13 +7,13 @@
     <title>Document</title>
 
     @vite('resources/css/app.css')
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/alpinejs/3.13.0/cdn.min.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/alpinejs/3.13.0/cdn.min.js"></script>
 
 </head>
 <body class="bg-gray-100">
     <div x-data="{ sidebarOpen: false, dropdownOpen: false, searchOpen: false }">
         <!-- Top Navigation Bar -->
-        <nav class=" sticky top-0 z-50 w-full bg-white border-b border-gray-200  ">
+        <nav class=" sticky top-0 z-20 w-full bg-white border-b border-gray-200  ">
             <div class="px-3 py-3 lg:px-5 lg:pl-3">
                 <div class="flex items-center justify-between">
                     <div class="flex items-center justify-start">
@@ -61,12 +61,15 @@
                                 </div>
                                 <ul class="py-1" aria-labelledby="user-menu-button">
                                     <li>
-                                        <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100   ">Dashboard</a>
+                                        <a href="{{ route('dashboard') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100   ">Dashboard</a>
                                     </li>
                                     <li>
-                                        <form action="{{ route('logout') }}" method="POST" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100  " >
+                                        <form action="{{ route('logout') }}" method="POST" >
                                             @csrf
-                                            <button type="submit">Logout</button>
+                                            <a class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" 
+                                                @click.prevent="$refs.logoutButton.click()">Logout</a>
+                                            <button type="submit" x-ref="logoutButton" style="display: none;">Logout</button>
+                                            
                                         </form>
                                     </li>
                                 </ul>
@@ -91,7 +94,7 @@
         <div class="lg:flex">
             <!-- Sidebar -->
             <aside :class="{'translate-x-0': sidebarOpen, '-translate-x-full': !sidebarOpen}" 
-                   class="fixed pt-6 top-16 left-0 w-64 h-screen transition-transform bg-white lg:translate-x-0 lg:sticky lg:max-w-80 lg:h-screen">
+                   class="fixed z-10 pt-6 top-16 left-0 w-64 h-screen transition-transform bg-white lg:translate-x-0 lg:sticky lg:max-w-80 lg:h-screen">
               <div class="h-full px-3 pb-4 overflow-y-auto bg-white">
                 <ul class="space-y-2 font-medium">
                     {{-- Dashboard Sidebar --}}
@@ -121,11 +124,11 @@
                         {{-- Dropdown Kelas --}}
                         <ul x-show="openkelas" x-transition class="py-2 space-y-2">
                             <li>
-                                <a href="#" class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100">List Kelas</a>
+                                <a href="{{ route('kelas.list') }}" class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100">List Kelas</a>
                             </li>
                             <template x-if="{{ $role =='kaprodi'}}">
                             <li>
-                                <a href="#" class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100">Edit Kelas </a>
+                                <a href="{{ route('kelas.edit') }}" class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100">Edit Kelas </a>
                             </li>
                             </template>
                         </ul>

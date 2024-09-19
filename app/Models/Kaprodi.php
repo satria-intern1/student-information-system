@@ -12,12 +12,11 @@ class Kaprodi extends Model
 
     protected $fillable = ['kode_dosen', 'nip', 'name', 'user_id'];
 
-
+    // Add the $with property for default eager loading
+    // protected $with = ['user',];
 
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }
-
-    
 }

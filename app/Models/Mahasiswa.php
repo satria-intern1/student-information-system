@@ -11,8 +11,9 @@ class Mahasiswa extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['kelas_id', 'user_id', 'nim', 'name', 'tempat_lahir', ' tanggal_lahir', ' edit'];
+    protected $fillable = ['kelas_id', 'user_id', 'nim', 'name', 'tempat_lahir', 'tanggal_lahir', 'edit'];
 
+    // Add the $with property for default eager loading
 
     public function user(): BelongsTo
     {
@@ -28,6 +29,4 @@ class Mahasiswa extends Model
     {
         return $this->belongsTo(Kelas::class);
     }
-
-    
 }

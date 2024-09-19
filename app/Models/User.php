@@ -12,7 +12,9 @@ class User extends Model implements AuthenticatableContract
 {
     use HasFactory, Authenticatable;
 
-    protected $fillable = ['username' , 'email', 'password', 'role',];
+    protected $fillable = ['username', 'email', 'password', 'role'];
+
+    // Add the $with property for default eager loading
 
     public function kaprodi(): HasOne
     {

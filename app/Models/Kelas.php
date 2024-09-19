@@ -11,9 +11,11 @@ class Kelas extends Model
 {
     use HasFactory;
 
-
     protected $fillable = ['name', 'jumlah'];
 
+    // Add the $with property for default eager loading
+
+    protected $with = ['mahasiswas', 'dosen'];
 
     public function dosen(): HasOne
     {
@@ -29,6 +31,4 @@ class Kelas extends Model
     {
         return $this->hasMany(Requestletter::class);
     }
-
-    
 }
