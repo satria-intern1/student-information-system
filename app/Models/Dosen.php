@@ -14,6 +14,21 @@ class Dosen extends Model
 
     // Add the $with property for default eager loading
 
+    protected static function boot()
+    {
+        parent::boot();
+
+        //When a lecturer instance is being deleted, 
+        //it checks if the instance has a related user and 
+        //deletes the user instance as well.
+
+        static::deleting(function ($lecturer) {
+            if ($lecturer->user) {
+                $lecturer->user->delete();
+            }
+        });
+    }
+
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);

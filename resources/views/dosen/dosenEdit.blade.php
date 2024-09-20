@@ -3,7 +3,22 @@
     <x-slot:email>{{ $user['email'] }}</x-slot>
     <x-slot:role>{{ $user['role'] }}</x-slot>
     
-    
+
+    {{-- dosen info--}}
+   <div class=" max-w-md bg-white rounded-2xl shadow-md  m-4">
+        <div class="px-4 py-3">
+                <div class="text-md uppercase tracking-wide  text-blue-600 font-semibold">
+                    Lecturer Information
+                </div>
+                <p class="text-sm font-medium text-gray-600">Total Lecturer 
+                    <span class="font-semibold text-gray-800">{{ count($lecturers) }}</span>
+                </p>
+                <p class="text-sm font-medium text-gray-600">Lecturer with no classroom
+                    <span class="font-semibold text-gray-800">{{ count($lecturers->where('kelas_id', null)) ??  '0' }}</span>
+                </p>
+        </div>
+    </div>
+        
 
     {{-- Add Class Button --}}
     <x-addbutton-modalform>
@@ -25,18 +40,21 @@
     </x-addbutton-modalform>
 
     <!-- Table Container -->
-    <div x-data="{ showDeleteModal: false, classToDelete: null }" class="px-4 sm:px-6 lg:px-8">
+    <div x-data="{ showDeleteModal: false, dosenToDelete: null }" class="px-4 sm:px-6 lg:px-8">
         <div class="overflow-x-auto shadow-md sm:rounded-lg">
             <table class="w-full text-sm text-left rtl:text-right text-gray-500">
                 <thead class="text-xs text-gray-700 uppercase bg-gray-50">
                     <tr>
                         <th scope="col" class="px-6 py-3">No.</th>
-                        <th scope="col" class="px-6 py-3">Lecture Code</th>
+                        <th scope="col" class="px-6 py-3">Lecturer Code</th>
                         <th scope="col" class="px-6 py-3">
-                            <div class="flex items-center justify-center">Lecture Name</div>
+                            <div class="flex items-center justify-center">Lecturer Name</div>
                         </th>
                         <th scope="col" class="px-6 py-3">
-                            <div class="flex items-center justify-center">Lecture NIP</div>
+                            <div class="flex items-center justify-center">Lecturer NIP</div>
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                            <div class="flex items-center justify-center">Classroom</div>
                         </th>
                         <th scope="col" class="px-6 py-3">
                             <div class="flex items-center justify-center">Email</div>
@@ -48,28 +66,37 @@
                 </thead>
                 <tbody>
                     @foreach ($lecturers as $lecturer)
-                    <tr class="bg-white border-b" x-data="{ 
+                    <tr class="bg-white border-b" x-data="{     
                         editing: false, 
-                        {{-- className: '{{ $class['name'] }}', 
-                        classCapacity: '{{ $class['jumlah'] }}',
-                        originalName: '{{ $class['name'] }}',
-                        originalCapacity: '{{ $class['jumlah'] }}' --}}
+                        lecturerCode: '{{ $lecturer['kode_dosen'] }}', originalCode: '{{ $lecturer['kode_dosen'] }}', 
+                        lecturerName: '{{ $lecturer['name'] }}', originalName: '{{ $lecturer['name'] }}',
+                        lecturerNIP: '{{ $lecturer['nip'] }}', originalNIP: '{{ $lecturer['nip'] }}',
                     }">
                         <td class="px-6 py-4">{{ $loop->iteration }}</td>
                         <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
-                            <span x-show="!editing">{{ $lecturer['kode_dosen'] }}</span>
-                            <input x-show="editing" type="text" x-model="className" 
-                                class="w-full min-w-[200px] px-2 py-1 text-gray-700 bg-gray-100 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                            <div class="flex items-center justify-center">
+                                <span x-show="!editing">{{ $lecturer['kode_dosen'] }}</span>
+                                <input x-show="editing" type="number" x-model="lecturerCode" 
+                                    class="w-full min-w-[200px] px-2 py-1 text-gray-700 bg-gray-100 border border-gray-300 rounded-md text-center focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                            </div>
                         </th>
                         <td class="px-6 py-4">
                             <div class="flex items-center justify-center">
                                 <span x-show="!editing">{{ $lecturer['name'] }}</span>
-                                <input x-show="editing" type="number" x-model="classCapacity" 
-                                    class="w-20 px-2 py-1 text-gray-700 bg-gray-100 border border-gray-300 rounded-md text-center focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                                <input x-show="editing" type="text" x-model="lecturerName" 
+                                    class="w-full min-w-[200px] px-2 py-1 text-gray-700 bg-gray-100 border border-gray-300 rounded-md text-center focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                            </div>
+                        </td>
+
+                        <td class="px-6 py-4">
+                            <div class="flex items-center justify-center">
+                                <span x-show="!editing">{{ $lecturer['nip'] }}</span>
+                                <input x-show="editing" type="number" x-model="lecturerNIP" 
+                                    class="w-full min-w-[200px] px-2 py-1 text-gray-700 bg-gray-100 border border-gray-300 rounded-md text-center focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
                             </div>
                         </td>
                         <td class="px-6 py-4">
-                            <div class="flex items-center justify-center">{{ $lecturer['nip'] }}</div>
+                            <div class="flex items-center justify-center {{ !$lecturer->kelas ? 'text-red-500' : '' }}">{{ $lecturer->kelas->name ?? 'not assigned'}}</div>
                         </td>
                         <td class="px-6 py-4">
                             <div class="flex items-center justify-center">{{ $lecturer->user['email']}}</div>
@@ -82,7 +109,7 @@
                                                 class="px-3 py-1 text-sm font-medium text-white bg-blue-600 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
                                             Edit
                                         </button>
-                                        <button @click="showDeleteModal = true; classToDelete = {{ $lecturer['id'] }}"
+                                        <button @click="showDeleteModal = true; dosenToDelete = {{ $lecturer['id'] }}"
                                             class="px-3 py-1 text-sm font-medium text-white bg-red-600 rounded-md hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2">
                                             Delete
                                         </button>
@@ -91,17 +118,19 @@
                                 <template x-if="editing">
                                     <form class="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-2" 
                                         method="POST" 
-                                        action="{{ route('kelas.update', $lecturer['id']) }}">
+                                        action="{{ route('dosen.update', $lecturer['id']) }}">
                                         @csrf
                                         @method('PUT')
-                                        <input type="hidden" name="name" :value="className">
-                                        <input type="hidden" name="jumlah" :value="classCapacity">
+                                        <input type="hidden" name="kode_dosen" :value="lecturerCode">
+                                        <input type="hidden" name="name" :value="lecturerName">
+                                        <input type="hidden" name="nip" :value="lecturerNIP">
                                         <button type="submit"
                                                 class="px-3 py-1 text-sm font-medium text-white bg-green-600 rounded-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2">
                                             Confirm
                                         </button>
                                         <button type="button"
-                                                @click="editing = false; className = originalName; classCapacity = originalCapacity" 
+                                                @click="editing = false;
+                                                lecturerCode = originalCode; lecturerName = originalName; lecturerNIP = originalNIP;" 
                                                 class="px-3 py-1 text-sm font-medium text-white bg-gray-600 rounded-md hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2">
                                             Cancel
                                         </button>
@@ -155,7 +184,7 @@
                         </div>
                     </div>
                     <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
-                        <form method="POST" :action="'{{ route('kelas.delete', '') }}/' + classToDelete">
+                        <form method="POST" :action="'{{ route('dosen.delete', '') }}/' + dosenToDelete">
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-red-600 text-base font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:ml-3 sm:w-auto sm:text-sm">

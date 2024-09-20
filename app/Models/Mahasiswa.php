@@ -15,6 +15,22 @@ class Mahasiswa extends Model
 
     // Add the $with property for default eager loading
 
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        //When a student instance is being deleted, 
+        //it checks if the instance has a related user and 
+        //deletes the user instance as well.
+
+        static::deleting(function ($student) {
+            if ($student->user) {
+                $student->user->delete();
+            }
+        });
+    }
+
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);

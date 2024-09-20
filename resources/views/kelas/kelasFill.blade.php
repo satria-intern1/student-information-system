@@ -9,7 +9,7 @@
    <div class=" mx-auto bg-white rounded-2xl shadow-md  m-4">
       <div class="px-4 py-3 flex justify-between">
             <div>
-                <div class="text-lg uppercase tracking-wide text-md text-blue-600 font-semibold">
+                <div class="text-lg uppercase tracking-wide text-blue-600 font-semibold">
 
                     {{ $class->name }}
 
