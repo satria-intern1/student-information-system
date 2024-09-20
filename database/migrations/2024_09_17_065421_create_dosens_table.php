@@ -20,7 +20,7 @@ return new class extends Migration
             
             
             //kode dosen maybe refer to NIDN
-            //if NIDN start with 0, change to string unique
+            //if kode dosen start with 0, change to string unique
             $table->bigInteger('kode_dosen')->unique();
             $table->bigInteger('nip')->unique();
 

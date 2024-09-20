@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\StoreKelasRequest;
 use App\Http\Requests\UpdateKelasRequest;
+use App\Models\Dosen;
 
 class KelasController extends Controller
 {
@@ -56,7 +57,7 @@ class KelasController extends Controller
         }
 
 
-        return view('kelasList', [
+        return view('kelas.kelasList', [
             'title' => 'Dashboard',
             'user' => $user,
             'userData' => $userData,
@@ -89,21 +90,45 @@ class KelasController extends Controller
         }
 
 
-        return view('kelasEdit', [
+        return view('kelas.kelasEdit', [
             'title' => 'Dashboard',
             'user' => $user,
             'userData' => $userData,
             'classes' => $classes,
         ]);
     }
+
     
 
     /**
-     * Show the form for creating a new resource.
+     * Show the Plotting Classroom view
      */
-    public function create()
+    public function displayFillKelas($classId)
     {
         //
+        $user = auth()->user();
+        $userData = $user->kaprodi;
+
+        $class = Kelas::findOrFail($classId);
+
+
+        $studentsClass = Mahasiswa::where('kelas_id', $classId)->get();
+        $remainingStd = Mahasiswa::whereNull('kelas_id')->get();
+
+        $lecturerClass = Dosen::where('kelas_id', $classId)->first();
+        $otherLecturers = Dosen::where('kelas_id', '!=', $classId)->orWhereNull('kelas_id')->get();
+
+
+        return view('kelas.kelasFill', [
+            'title' => 'Dashboard',
+            'user' => $user,
+            'userData' => $userData,
+            'class' => $class,
+            'studentsClass' => $studentsClass,
+            'remainingStudents' => $remainingStd,
+            'lecturerClass' => $lecturerClass,
+            'otherLecturers' => $otherLecturers,
+        ]);
     }
 
     /**

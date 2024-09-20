@@ -3,61 +3,26 @@
     <x-slot:email>{{ $user['email'] }}</x-slot>
     <x-slot:role>{{ $user['role'] }}</x-slot>
     
+    
+
     {{-- Add Class Button --}}
-    <div x-data="{ showAddModal: false, " class="mb-4 px-4 sm:px-6 lg:px-8">
-        <button @click="showAddModal = true" type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
-            Add New Class
-        </button>
+    <x-addbutton-modalform>
+        <x-slot:buttonText>Add New Lecturer</x-slot:buttonText>
+        <x-slot:route>{{ route('dosen.add')}}</x-slot:route>
 
-        <!-- Add Class Modal -->
-        <div x-show="showAddModal" class="fixed inset-0 z-50 overflow-y-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true">
-            <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
-                <div x-show="showAddModal" 
-                    x-transition:enter="ease-out duration-300"
-                    x-transition:enter-start="opacity-0"
-                    x-transition:enter-end="opacity-100"
-                    x-transition:leave="ease-in duration-200"
-                    x-transition:leave-start="opacity-100"
-                    x-transition:leave-end="opacity-0"
-                    class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true"></div>
-
-                <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
-
-                <div x-show="showAddModal" 
-                    x-transition:enter="ease-out duration-300"
-                    x-transition:enter-start="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
-                    x-transition:enter-end="opacity-100 translate-y-0 sm:scale-100"
-                    x-transition:leave="ease-in duration-200"
-                    x-transition:leave-start="opacity-100 translate-y-0 sm:scale-100"
-                    x-transition:leave-end="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
-                    class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
-
-
-                    <form action="{{ route('kelas.add')}}" method="POST">
-                        @csrf
-                        <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
-                            <div class="mb-4">
-                                <label for="className" class="block text-gray-700 text-sm font-bold mb-2">Class Name:</label>
-                                <input type="text" name="name" id="className" required class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
-                            </div>
-                            <div class="mb-4">
-                                <label for="classCapacity" class="block text-gray-700 text-sm font-bold mb-2">Class Capacity:</label>
-                                <input type="number" name="jumlah" id="classCapacity" required class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
-                            </div>
-                        </div>
-                        <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
-                            <button type="submit" class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-blue-600 text-base font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 sm:ml-3 sm:w-auto sm:text-sm">
-                                Submit
-                            </button>
-                            <button @click="showAddModal = false" type="button" class="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm">
-                                Cancel
-                            </button>
-                        </div>
-                    </form>
-                </div>
-            </div>
+        <div class="mb-4">
+            <label for="name" class="block text-gray-700 text-sm font-bold mb-2">Lecture Name:</label>
+            <input type="text" name="name" id="name" required class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
         </div>
-    </div>
+        <div class="mb-4">
+            <label for="kode_dosen" class="block text-gray-700 text-sm font-bold mb-2">Lecture Code:</label>
+            <input type="number" name="kode_dosen" id="kode_dosen" required class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+        </div>
+        <div class="mb-4">
+            <label for="nip" class="block text-gray-700 text-sm font-bold mb-2">Lecture NIP:</label>
+            <input type="number" name="nip" id="nip" required class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+        </div>
+    </x-addbutton-modalform>
 
     <!-- Table Container -->
     <div x-data="{ showDeleteModal: false, classToDelete: null }" class="px-4 sm:px-6 lg:px-8">
@@ -66,10 +31,7 @@
                 <thead class="text-xs text-gray-700 uppercase bg-gray-50">
                     <tr>
                         <th scope="col" class="px-6 py-3">No.</th>
-                        <th scope="col" class="px-6 py-3">Class Name</th>
-                        <th scope="col" class="px-6 py-3">
-                            <div class="flex items-center justify-center">Class Capacity</div>
-                        </th>
+                        <th scope="col" class="px-6 py-3">Lecture Code</th>
                         <th scope="col" class="px-6 py-3">
                             <div class="flex items-center justify-center">Lecture Name</div>
                         </th>
@@ -77,37 +39,40 @@
                             <div class="flex items-center justify-center">Lecture NIP</div>
                         </th>
                         <th scope="col" class="px-6 py-3">
+                            <div class="flex items-center justify-center">Email</div>
+                        </th>
+                        <th scope="col" class="px-6 py-3">
                             <div class="flex items-center justify-center">Action</div>
                         </th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($classes as $class)
+                    @foreach ($lecturers as $lecturer)
                     <tr class="bg-white border-b" x-data="{ 
                         editing: false, 
-                        className: '{{ $class['name'] }}', 
+                        {{-- className: '{{ $class['name'] }}', 
                         classCapacity: '{{ $class['jumlah'] }}',
                         originalName: '{{ $class['name'] }}',
-                        originalCapacity: '{{ $class['jumlah'] }}'
+                        originalCapacity: '{{ $class['jumlah'] }}' --}}
                     }">
                         <td class="px-6 py-4">{{ $loop->iteration }}</td>
                         <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
-                            <span x-show="!editing">{{ $class['name'] }}</span>
+                            <span x-show="!editing">{{ $lecturer['kode_dosen'] }}</span>
                             <input x-show="editing" type="text" x-model="className" 
                                 class="w-full min-w-[200px] px-2 py-1 text-gray-700 bg-gray-100 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
                         </th>
                         <td class="px-6 py-4">
                             <div class="flex items-center justify-center">
-                                <span x-show="!editing">{{ $class['jumlah'] }}</span>
+                                <span x-show="!editing">{{ $lecturer['name'] }}</span>
                                 <input x-show="editing" type="number" x-model="classCapacity" 
                                     class="w-20 px-2 py-1 text-gray-700 bg-gray-100 border border-gray-300 rounded-md text-center focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
                             </div>
                         </td>
                         <td class="px-6 py-4">
-                            <div class="flex items-center justify-center">{{ $class->dosen->name ?? 'none' }}</div>
+                            <div class="flex items-center justify-center">{{ $lecturer['nip'] }}</div>
                         </td>
                         <td class="px-6 py-4">
-                            <div class="flex items-center justify-center">{{ $class->dosen->nip ?? 'none' }}</div>
+                            <div class="flex items-center justify-center">{{ $lecturer->user['email']}}</div>
                         </td>
                         <td class="px-6 py-4">
                             <div class="flex flex-col sm:flex-row items-center justify-center space-y-2 sm:space-y-0 sm:space-x-2">
@@ -117,8 +82,8 @@
                                                 class="px-3 py-1 text-sm font-medium text-white bg-blue-600 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
                                             Edit
                                         </button>
-                                        <button @click="showDeleteModal = true; classToDelete = {{ $class->id }}"
-                                                class="px-3 py-1 text-sm font-medium text-white bg-red-600 rounded-md hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2">
+                                        <button @click="showDeleteModal = true; classToDelete = {{ $lecturer['id'] }}"
+                                            class="px-3 py-1 text-sm font-medium text-white bg-red-600 rounded-md hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2">
                                             Delete
                                         </button>
                                     </div>
@@ -126,7 +91,7 @@
                                 <template x-if="editing">
                                     <form class="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-2" 
                                         method="POST" 
-                                        action="{{ route('kelas.update', $class->id) }}">
+                                        action="{{ route('kelas.update', $lecturer['id']) }}">
                                         @csrf
                                         @method('PUT')
                                         <input type="hidden" name="name" :value="className">
@@ -150,7 +115,7 @@
             </table>
         </div>
 
-        <!-- Reusable Delete Confirmation Modal -->
+        <!--  Delete Confirmation Modal -->
         <div x-show="showDeleteModal" class="fixed inset-0 z-30 overflow-y-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true">
             <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
                 {{-- background modal --}}

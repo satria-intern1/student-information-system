@@ -25,8 +25,8 @@
                 </div>
                 <div class="mt-2 text-gray-500">
                     <div>
-                        <p><span class="font-semibold">Nama Dosen: </span> <a href="">{{ $class->dosen->name }}</a></p>
-                        <p><span class="font-semibold">Email: </span> <a href="mailto:{{ $class->dosen->user->email }}">{{ $class->dosen->user->email }}</a></p>
+                        <p><span class="font-semibold">Nama Dosen: </span> <a href="">{{ $class->dosen->name ??'none'}}</a></p>
+                        <p><span class="font-semibold">Email: </span> <a href="mailto:{{ $class->dosen->user->email ?? ' '}}">{{ $class->dosen->user->email ?? 'none' }}</a></p>
                     </div>
                 </div>
             </div>
