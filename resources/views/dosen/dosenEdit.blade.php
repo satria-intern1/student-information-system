@@ -5,7 +5,7 @@
     
 
     {{-- dosen info--}}
-   <div class=" max-w-md bg-white rounded-2xl shadow-md  m-4">
+   <div class=" max-w-md bg-white rounded-2xl shadow-md  m-4 lg:mx-8">
         <div class="px-4 py-3">
                 <div class="text-md uppercase tracking-wide  text-blue-600 font-semibold">
                     Lecturer Information

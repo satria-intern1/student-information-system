@@ -16,6 +16,21 @@ class DosenController extends Controller
     public function index()
     {
         //
+        $user = auth()->user();
+        $userData = $user->kaprodi;
+
+        $lecturers = Dosen::all();
+
+
+
+        return view('dosen.dosenList', [
+            'title' => 'Dashboard',
+            'user' => $user,
+            'userData' => $userData,
+            'lecturers' => $lecturers,
+        ]);
+
+
     }
 
     /**
@@ -43,7 +58,7 @@ class DosenController extends Controller
 
             // Generate username and email
             $username = Str::slug($firstTwoWords);
-            $email = $username . ' @university.ac.id';
+            $email = $username . '@university.ac.id';
 
             // Generate a default password using kode dosen
             // $password = $validatedData['kode_dosen'];

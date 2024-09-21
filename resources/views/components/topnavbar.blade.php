@@ -48,7 +48,7 @@
                             <li>
                                 <a href="{{ route('dashboard') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100   ">Dashboard</a>
                             </li>
-                            <li>
+                            <li class="hover:cursor-pointer">
                                 <form action="{{ route('logout') }}" method="POST" >
                                     @csrf
                                     <a class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" 

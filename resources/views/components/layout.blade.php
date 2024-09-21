@@ -25,7 +25,7 @@
             </x-sidebar>
           
             <!-- Main Content -->
-            <main class="p-4 w-full bg-slate-400">
+            <main class="p-4 w-full">
                     <!-- Main content -->     
                 
                     {{ $slot }}
