@@ -115,9 +115,13 @@ class KelasController extends Controller
         $studentsClass = Mahasiswa::where('kelas_id', $classId)->get();
         $remainingStd = Mahasiswa::whereNull('kelas_id')->get();
 
-        $lecturerClass = Dosen::where('kelas_id', $classId)->first();
-        $otherLecturers = Dosen::where('kelas_id', '!=', $classId)->orWhereNull('kelas_id')->get();
+        $lecturerClass = Dosen::where('kelas_id', $classId)->first(); 
+        $lecturers = Dosen::all();
 
+        $selectedId = $lecturerClass ? $lecturerClass->id : null;
+
+
+        
 
         return view('kelas.kelasFill', [
             'title' => 'Dashboard',
@@ -127,7 +131,8 @@ class KelasController extends Controller
             'studentsClass' => $studentsClass,
             'remainingStudents' => $remainingStd,
             'lecturerClass' => $lecturerClass,
-            'otherLecturers' => $otherLecturers,
+            'lecturers' => $lecturers,
+            
         ]);
     }
 

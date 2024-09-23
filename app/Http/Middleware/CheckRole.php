@@ -19,6 +19,8 @@ class CheckRole
         // not meet your role
         // then redirect to dashboard
 
+        //the argument can take multiple role, it will in an array
+
 
         if (!in_array(auth()->user()->role, $roles)) {
             return redirect('/dashboard');

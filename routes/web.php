@@ -20,7 +20,7 @@ use App\Http\Controllers\MahasiswaController;
 */
 
 // reminder i already make this kind of middleware
-// middleware('role:allowedrole1,alllowedrole2');
+// ->middleware('role:allowedrole1,alllowedrole2');
 
 Route::middleware('guest')->group(function () {
     Route::get('/', [LoginController::class, 'index'])->name('login');
@@ -33,31 +33,31 @@ Route::middleware('auth')->group(function () {
 
     Route::prefix('kelas')->group(function () {
         Route::get('/list', [KelasController::class, 'index'])->name('kelas.list');
-        Route::get('/edit', [KelasController::class, 'formtable'])->name('kelas.edit');
-        Route::get('/fill/{id}', [KelasController::class, 'displayFillKelas'])->name('kelas.fill');
-        Route::post('/add', [KelasController::class, 'store'])->name('kelas.add');
-        Route::delete('/delete/{id}', [KelasController::class, 'destroy'])->name('kelas.delete');
-        Route::put('/update/{id}', [KelasController::class, 'update'])->name('kelas.update');
+        Route::get('/edit', [KelasController::class, 'formtable'])->name('kelas.edit')->middleware('role:kaprodi');
+        Route::get('/fill/{id}', [KelasController::class, 'displayFillKelas'])->name('kelas.fill')->middleware('role:kaprodi');
+        Route::post('/add', [KelasController::class, 'store'])->name('kelas.add')->middleware('role:kaprodi');
+        Route::delete('/delete/{id}', [KelasController::class, 'destroy'])->name('kelas.delete')->middleware('role:kaprodi');
+        Route::put('/update/{id}', [KelasController::class, 'update'])->name('kelas.update')->middleware('role:kaprodi');
     });
 
     Route::prefix('dosen')->group(function () {
         Route::get('/list', [DosenController::class, 'index'])->name('dosen.list');
-        Route::get('/edit', [DosenController::class, 'formtable'])->name('dosen.edit');
-        Route::post('/add', [DosenController::class, 'store'])->name('dosen.add');
-        Route::delete('/delete/{id}', [DosenController::class, 'destroy'])->name('dosen.delete');
-        Route::put('/update/{id}', [DosenController::class, 'update'])->name('dosen.update');
+        Route::get('/edit', [DosenController::class, 'formtable'])->name('dosen.edit')->middleware('role:kaprodi');
+        Route::post('/add', [DosenController::class, 'store'])->name('dosen.add')->middleware('role:kaprodi');
+        Route::delete('/delete/{id}', [DosenController::class, 'destroy'])->name('dosen.delete')->middleware('role:kaprodi');
+        Route::put('/update/{id}', [DosenController::class, 'update'])->name('dosen.update')->middleware('role:kaprodi');
+        Route::put('/update-class/{id}', [DosenController::class, 'updateClass'])->name('dosen.update.class')->middleware('role:kaprodi');
+
     });
 
     Route::prefix('mahasiswa')->group(function () {
-        Route::get('/list', [MahasiswaController::class, 'index'])->name('mahasiswa.list');
-        Route::get('/edit', [MahasiswaController::class, 'formtable'])->name('mahasiswa.edit');
+        Route::get('/list', [MahasiswaController::class, 'index'])->name('mahasiswa.list')->middleware('role:kaprodi,dosen');
+        Route::get('/kelas/{id}', [MahasiswaController::class, 'formtable'])->name('mahasiswa.editkelas');
         Route::post('/add', [MahasiswaController::class, 'store'])->name('mahasiswa.add');
         Route::delete('/delete/{id}', [MahasiswaController::class, 'destroy'])->name('mahasiswa.delete');
         Route::put('/update/{id}', [MahasiswaController::class, 'update'])->name('mahasiswa.update');
+        Route::put('/update-class/{id}', [MahasiswaController::class, 'updateClass'])->name('mahasiswa.update.class')->middleware('role:kaprodi');
+        
     });
+
 });
-
-
-Route::get('/mahasiswa/list')->name('mahasiswa.list');
-Route::get('/mahasiswa/edit')->name('mahasiswa.edit');
-Route::post('/mahasiswa/edit')->name('mahasiswa.update');

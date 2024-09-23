@@ -3,9 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard with Search</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/alpinejs/3.13.0/cdn.min.js"></script>
+    <title>{{ $title }}</title>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/alpinejs/3.13.0/cdn.min.js"></script>
+    @vite('resources/css/app.css')
+
 </head>
 <body class="h-full">
   @if (session('error'))
@@ -26,8 +27,9 @@
             <div>
               <label for="username" class="block text-sm font-medium leading-6 text-gray-900">Username</label>
               <div class="mt-2">
-                <input autofocus id="username" autocomplete="none" name="username" type="username" required value='{{ old('username') }}'
-                  class=" @error('username') ring-3 ring-red-600 @enderror p-2 w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                <input autofocus id="username" autocomplete="none" name="username" type="username"  required value='{{ old('username') }}'
+                class="p-2 w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm placeholder:text-gray-400 sm:text-sm sm:leading-6 ring-inset
+        @error('username') ring-3 ring-red-600 @else ring-1 ring-gray-300 focus:ring-2 focus:ring-indigo-600 @enderror">
               </div>
 
                 <p class="text-red-500 text-sm ">
@@ -46,7 +48,7 @@
                 </div>
               </div>
               <div class="mt-2">
-                <input id="password" name="password" type="password" required class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                <input id="password" name="password" type="password" required class="p-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
               </div>
             </div>
       
@@ -55,9 +57,6 @@
             </div>
           </form>
       
-          <!-- <p class="mt-10 text-center text-sm text-gray-500">
-            Not a member?
-          </p> -->
         </div>
       </div>
 </body>

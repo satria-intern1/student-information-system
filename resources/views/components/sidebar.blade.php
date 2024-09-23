@@ -84,12 +84,12 @@
             {{-- Dropdown Mahasiswa --}}
             <ul x-show="openMhs" x-transition class="py-2 space-y-2">
                 <li>
-                <a href="#" class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100">Mahasiswa List</a>
+                <a href="{{ route('mahasiswa.list') }}" class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100">Mahasiswa List</a>
                 </li>
-                <template x-if="{{ $role == 'dosen' }}">
-                <li>
-                <a href="#" class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100">Edit Mahasiswa Data</a>
-                </li>
+                <template x-if="{{ $role == 'dosen' && $kelasId !== 'none'}}">
+                  <li>
+                  <a href="{{ route('mahasiswa.editkelas', $kelasId)}}" class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100">Edit Mahasiswa Data</a>
+                  </li>
                 </template>
             </ul>
             </div>

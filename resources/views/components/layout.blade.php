@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>{{ $title }}</title>
 
     @vite('resources/css/app.css')
     <script defer src="https://cdnjs.cloudflare.com/ajax/libs/alpinejs/3.13.0/cdn.min.js"></script>
@@ -22,6 +22,11 @@
             <!-- Sidebar -->
             <x-sidebar>
                 <x-slot:role>{{$role }}</x-slot>
+                
+                @if ($role == 'dosen')
+                    <x-slot:kelasId>{{ $kelasId}}</x-slot>
+                @endif
+
             </x-sidebar>
           
             <!-- Main Content -->

@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Models\Dosen;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
 class DosenController extends Controller
@@ -49,8 +50,8 @@ class DosenController extends Controller
         //
         $validatedData = $request->validate([
             'name' => ['required', 'string','min:1' , 'max:255'],
-            'kode_dosen' => ['required', 'integer', 'min:0', 'digits:10'],
-            'nip' => ['required', 'integer', 'min:0', 'digits:18'],
+            'kode_dosen' => ['required', 'integer', 'min:0',],
+            'nip' => ['required', 'integer', 'min:0', ],
         ]);
             // Split the name and take the first two words
             $splitNameToArray = explode(' ', $validatedData['name']);
@@ -60,7 +61,7 @@ class DosenController extends Controller
             $username = Str::slug($firstTwoWords);
             $email = $username . '@university.ac.id';
 
-            // Generate a default password using kode dosen
+            // Generate default password using kode dosen
             // $password = $validatedData['kode_dosen'];
 
             
@@ -134,8 +135,8 @@ class DosenController extends Controller
         //
         $validatedData = $request->validate([
            'name' => ['required', 'string','min:1' , 'max:255'],
-            'kode_dosen' => ['required', 'integer', 'min:0', 'digits:10'],
-            'nip' => ['required', 'integer', 'min:0', 'digits:18'],
+            'kode_dosen' => ['required', 'integer', 'min:0', ],
+            'nip' => ['required', 'integer', 'min:0',],
         ]);
     
         $lecturer = Dosen::findOrFail($id);
@@ -163,5 +164,24 @@ class DosenController extends Controller
         } catch (\Exception $e) {
             return redirect()->route('dosen.edit')->with('error', 'Failed to delete lecturer. ' . $e->getMessage());
         }
+    }
+
+
+    public function updateClass(Request $request, $classId)
+    {
+
+        $selectedLecturer = $request['selectedId'];
+
+
+
+        // set lecture in this class is null
+        Dosen::where('kelas_id', $classId)->update(['kelas_id' => null]);
+
+        // assign the lecture to this class
+        if ($selectedLecturer != 'null') {
+            Dosen::where('id', $selectedLecturer)->update(['kelas_id' => $classId]);
+        }
+
+        return redirect()->back()->with('success', 'Lecturers assignments updated successfully.');
     }
 }

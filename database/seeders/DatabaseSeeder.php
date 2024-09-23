@@ -7,7 +7,6 @@ use Illuminate\Database\Seeder;
 
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
-use function Laravel\Prompts\password;
 
 class DatabaseSeeder extends Seeder
 {
@@ -85,6 +84,60 @@ class DatabaseSeeder extends Seeder
                 'password' => Hash::make('password'),
                 'role' => 'mahasiswa',
             ],
+            [
+                'username' => 'mahasiswa5',
+                'email' => 'mahasiswa5@example.com',
+                'password' => Hash::make('password'),
+                'role' => 'mahasiswa',
+            ],
+            [
+                'username' => 'mahasiswa6',
+                'email' => 'mahasiswa6@example.com',
+                'password' => Hash::make('password'),
+                'role' => 'mahasiswa',
+            ],
+            [
+                'username' => 'mahasiswa7',
+                'email' => 'mahasiswa7@example.com',
+                'password' => Hash::make('password'),
+                'role' => 'mahasiswa',
+            ],
+            [
+                'username' => 'mahasiswa8',
+                'email' => 'mahasiswa8@example.com',
+                'password' => Hash::make('password'),
+                'role' => 'mahasiswa',
+            ],
+            [
+                'username' => 'mahasiswa9',
+                'email' => 'mahasiswa9@example.com',
+                'password' => Hash::make('password'),
+                'role' => 'mahasiswa',
+            ],
+            [
+                'username' => 'mahasiswa10',
+                'email' => 'mahasiswa10@example.com',
+                'password' => Hash::make('password'),
+                'role' => 'mahasiswa',
+            ],
+            [
+                'username' => 'mahasiswa11',
+                'email' => 'mahasiswa11@example.com',
+                'password' => Hash::make('password'),
+                'role' => 'mahasiswa',
+            ],
+            [
+                'username' => 'mahasiswa12',
+                'email' => 'mahasiswa12@example.com',
+                'password' => Hash::make('password'),
+                'role' => 'mahasiswa',
+            ],
+            [
+                'username' => 'mahasiswa13',
+                'email' => 'mahasiswa13@example.com',
+                'password' => Hash::make('password'),
+                'role' => 'mahasiswa',
+            ],
             
         ];
 
@@ -100,11 +153,15 @@ class DatabaseSeeder extends Seeder
         $kelas = [
             [
                 'name' => 'Kelas A',
-                'jumlah' => 30,
+                'jumlah' => 3,
             ],
             [
                 'name' => 'Kelas B',
-                'jumlah' => 25,
+                'jumlah' => 5,
+            ],
+            [
+                'name' => 'Kelas B',
+                'jumlah' => 4,
             ],
             // Add more kelas as needed
         ];
@@ -148,6 +205,70 @@ class DatabaseSeeder extends Seeder
                 'kelas_id' => $kelasIds[1], 
                 'nim' => 11111114,
                 'name' => 'Mahasiswa Abadi',
+                'tempat_lahir' => 'Surabaya',
+                'tanggal_lahir' => '2001-02-15',
+            ],
+            [
+                'user_id' => $userIds[9], 
+                'kelas_id' => null, 
+                'nim' => 11111115,
+                'name' => 'Asep Sucipto',
+                'tempat_lahir' => 'Surabaya',
+                'tanggal_lahir' => '2001-02-15',
+            ],
+            [
+                'user_id' => $userIds[10], 
+                'kelas_id' => null, 
+                'nim' => 11111116,
+                'name' => 'Budi setiawan',
+                'tempat_lahir' => 'Surabaya',
+                'tanggal_lahir' => '2001-02-15',
+            ],
+            [
+                'user_id' => $userIds[11], 
+                'kelas_id' => null, 
+                'nim' => 11111117,
+                'name' => 'Charlie Chaplin',
+                'tempat_lahir' => 'Surabaya',
+                'tanggal_lahir' => '2001-02-15',
+            ],
+            [
+                'user_id' => $userIds[12], 
+                'kelas_id' => null, 
+                'nim' => 11111118,
+                'name' => 'Doni Donut',
+                'tempat_lahir' => 'Surabaya',
+                'tanggal_lahir' => '2001-02-15',
+            ],
+            [
+                'user_id' => $userIds[13], 
+                'kelas_id' => null, 
+                'nim' => 11111119,
+                'name' => 'Earnest prakasa',
+                'tempat_lahir' => 'Surabaya',
+                'tanggal_lahir' => '2001-02-15',
+            ],
+            [
+                'user_id' => $userIds[14], 
+                'kelas_id' => null, 
+                'nim' => 11111120,
+                'name' => 'Fei xiao',
+                'tempat_lahir' => 'Surabaya',
+                'tanggal_lahir' => '2001-02-15',
+            ],
+            [
+                'user_id' => $userIds[15], 
+                'kelas_id' => null, 
+                'nim' => 11111121,
+                'name' => 'Giselle gunawan',
+                'tempat_lahir' => 'Surabaya',
+                'tanggal_lahir' => '2001-02-15',
+            ],
+            [
+                'user_id' => $userIds[16], 
+                'kelas_id' => null, 
+                'nim' => 11111122,
+                'name' => 'Harry kopter',
                 'tempat_lahir' => 'Surabaya',
                 'tanggal_lahir' => '2001-02-15',
             ],
