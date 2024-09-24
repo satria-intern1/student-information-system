@@ -55,7 +55,7 @@
             x-transition:leave-end="opacity-0 "
             class=" overflow-x-auto shadow-md sm:rounded-lg">
             <table class="w-full text-sm text-left rtl:text-right text-gray-500 ">
-                <thead class="text-xs text-gray-700 uppercase bg-gray-50  ">
+                <thead class="text-xs text-gray-700 uppercase bg-gray-100  ">
                     <tr>
                         <th scope="col" class="px-6 py-3">
                             No.
@@ -86,7 +86,7 @@
                 </thead>
                 <tbody>
                     @foreach ($class->mahasiswas as $mahasiswa)
-                    <tr class="bg-white border-b  ">
+                    <tr class="bg-white border-b hover:bg-gray-50">
                         <td class="px-6 py-4">
                             {{ $loop->iteration}}
                         </td>

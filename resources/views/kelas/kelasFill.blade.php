@@ -75,7 +75,7 @@
                 <input type="hidden" name="class_id" value="{{ $class['id'] }}">
                 <div class="overflow-x-auto shadow-md sm:rounded-lg">
                     <table class="w-full text-sm text-left text-gray-500">
-                        <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+                        <thead class="text-xs text-gray-700 uppercase bg-gray-100">
                             <tr>
                                 <th scope="col" class="px-6 py-3">Assigned</th>
                                 <th scope="col" class="px-6 py-3">Class Name</th>
@@ -85,7 +85,7 @@
                         </thead>
                         <tbody>
                             @foreach ($lecturers as $lecturer)
-                                <tr class="bg-white border-b">
+                                <tr class="bg-white border-b hover:bg-gray-50">
                                     <td class="px-6 py-4">
                                         <input type="checkbox" 
                                             :checked="selectedId == {{ $lecturer->id }}"
@@ -149,7 +149,7 @@
                         <input type="hidden" name="class_id" value="{{ $class['id'] }}">
                         <div class="mx-auto bg-white rounded-lg shadow-md m-4 overflow-x-auto">
                             <table class="w-full text-sm text-left rtl:text-right text-gray-500">
-                                <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+                                <thead class="text-xs text-gray-700 uppercase bg-gray-100">
                                     <tr>
                                         <th scope="col" class="px-6 py-3">Checkbox</th>
                                         <th scope="col" class="px-6 py-3">
@@ -162,7 +162,7 @@
                                 </thead>
                                 <tbody>
                                     @foreach ($studentsClass as $studentClass)
-                                    <tr class="bg-white border-b">
+                                    <tr class="bg-white border-b hover:bg-gray-50">
                                         <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
                                             <div class="flex items-center justify-center">
                                                 <input type="checkbox" 
@@ -182,7 +182,7 @@
                                     @endforeach
                     
                                     @foreach ($remainingStudents as $student)
-                                    <tr class="bg-white border-b">
+                                    <tr class="bg-white border-b hover:bg-gray-50">
                                         <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
                                             <div class="flex items-center justify-center">
                                                 <input type="checkbox" 

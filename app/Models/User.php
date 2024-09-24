@@ -15,6 +15,7 @@ class User extends Model implements AuthenticatableContract
     protected $fillable = ['username', 'email', 'password', 'role'];
 
     // Add the $with property for default eager loading
+    
 
     public function kaprodi(): HasOne
     {

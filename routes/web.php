@@ -1,6 +1,5 @@
 <?php
 
-use App\Models\Kelas;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DosenController;
 use App\Http\Controllers\KelasController;
@@ -59,5 +58,7 @@ Route::middleware('auth')->group(function () {
         Route::put('/update-class/{id}', [MahasiswaController::class, 'updateClass'])->name('mahasiswa.update.class')->middleware('role:kaprodi');
         
     });
+
+    Route::get('/edit-request', [MahasiswaController::class, 'displayReqEdit'])->name('mahasiswa.getEdit')->middleware('role:mahasiswa');
 
 });

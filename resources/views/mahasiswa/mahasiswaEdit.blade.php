@@ -21,7 +21,7 @@
                 </div>
               </header>
             <table class="w-full text-sm text-left text-gray-500">
-                <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+                <thead class="text-xs text-gray-700 uppercase bg-gray-100">
                     <tr>
                         <th scope="col" class="px-6 py-3">No.</th>
                         <th scope="col" class="px-6 py-3">Student NIM</th>
@@ -48,7 +48,7 @@
                 </thead>
                 <tbody>
                     @foreach ($students as $student)
-                    <tr class="bg-white border-b" x-data="{     
+                    <tr class="bg-white border-b hover:bg-gray-50" x-data="{     
                         editing: false, 
                         studentNIM: '{{ $student['nim'] }}', originalNIM: '{{ $student['nim'] }}', 
                         studentName: '{{ $student['name'] }}', originalName: '{{ $student['name'] }}',

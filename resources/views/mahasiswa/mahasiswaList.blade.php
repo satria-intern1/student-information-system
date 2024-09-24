@@ -23,7 +23,7 @@
                 </div>
               </header>
             <table class="w-full text-sm text-left text-gray-500">
-                <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+                <thead class="text-xs text-gray-700 uppercase bg-gray-100 ">
                     <tr>
                         <th scope="col" class="px-6 py-3">No.</th>
                         <th scope="col" class="px-6 py-3">Student NIM</th>
@@ -46,7 +46,7 @@
                 </thead>
                 <tbody>
                     @foreach ($students as $student)
-                    <tr class="bg-white border-b">
+                    <tr class="bg-white border-b hover:bg-gray-50">
                         <td class="px-6 py-4">{{ $loop->iteration }}</td>
                         <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
                             <div class="flex items-center justify-center">

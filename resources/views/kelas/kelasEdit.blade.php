@@ -29,7 +29,7 @@
     <div x-data="{ showDeleteModal: false, classToDelete: null }" class="px-4 sm:px-6 lg:px-8">
         <div class="overflow-x-auto shadow-md sm:rounded-lg">
             <table class="w-full text-sm text-left rtl:text-right text-gray-500">
-                <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+                <thead class="text-xs text-gray-700 uppercase bg-gray-100">
                     <tr>
                         <th scope="col" class="px-6 py-3">No.</th>
                         <th scope="col" class="px-6 py-3">Class Name</th>
@@ -49,7 +49,7 @@
                 </thead>
                 <tbody>
                     @foreach ($classes as $class)
-                    <tr class="bg-white border-b" x-data="{ 
+                    <tr class="bg-white border-b hover:bg-gray-50" x-data="{ 
                         editing: false, 
                         className: '{{ $class['name'] }}', 
                         classCapacity: '{{ $class['jumlah'] }}',

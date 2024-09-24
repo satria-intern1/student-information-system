@@ -17,8 +17,9 @@ class MahasiswaController extends Controller
         //
         $user = auth()->user();
         $userData = null;
+        
 
-        $students = Mahasiswa::all();
+        $students = Mahasiswa::with('kelas')->get();
 
         //retrieve data based on role
         switch ($user->role) {
@@ -74,7 +75,7 @@ class MahasiswaController extends Controller
         $userData = $user->dosen;
 
         // $lecturers = Mahasiswa::where(,)->get();
-        $studentsClass = Mahasiswa::where('kelas_id', $id)->get();
+        $studentsClass = Mahasiswa::where('kelas_id', $id)->with('kelas')->get();
 
 
 
@@ -142,6 +143,18 @@ class MahasiswaController extends Controller
         });
 
         return redirect()->back()->with('success', 'Students assignments updated successfully.');
+    }
+
+    public function displayReqEdit() {
+
+        $user = auth()->user();
+        $userData = $user->mahasiswa;
+        
+        return view('editrequest', [
+            'title' => 'Dashboard',
+            'user' => $user,
+            'userData' => $userData,
+        ]);
     }
 
 }

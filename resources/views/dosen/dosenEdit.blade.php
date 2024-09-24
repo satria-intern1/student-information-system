@@ -48,7 +48,7 @@
     <div x-data="{ showDeleteModal: false, dosenToDelete: null }" class="px-4 sm:px-6 lg:px-8">
         <div class="overflow-x-auto shadow-md sm:rounded-lg">
             <table class="w-full text-sm text-left rtl:text-right text-gray-500">
-                <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+                <thead class="text-xs text-gray-700 uppercase bg-gray-100">
                     <tr>
                         <th scope="col" class="px-6 py-3">No.</th>
                         <th scope="col" class="px-6 py-3">Lecturer Code</th>
@@ -71,7 +71,7 @@
                 </thead>
                 <tbody>
                     @foreach ($lecturers as $lecturer)
-                    <tr class="bg-white border-b" x-data="{     
+                    <tr class="bg-white border-b hover:bg-gray-50" x-data="{     
                         editing: false, 
                         lecturerCode: '{{ $lecturer['kode_dosen'] }}', originalCode: '{{ $lecturer['kode_dosen'] }}', 
                         lecturerName: '{{ $lecturer['name'] }}', originalName: '{{ $lecturer['name'] }}',
@@ -133,12 +133,7 @@
                                                 class="px-3 py-1 text-sm font-medium text-white bg-green-600 rounded-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2">
                                             Confirm
                                         </button>
-                                        <button type="button"
-                                                @click="editing = false;
-                                                lecturerCode = originalCode; lecturerName = originalName; lecturerNIP = originalNIP;" 
-                                                class="px-3 py-1 text-sm font-medium text-white bg-gray-600 rounded-md hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2">
-                                            Cancel
-                                        </button>
+                                        
                                     </form>
                                 </template>
                             </div>
