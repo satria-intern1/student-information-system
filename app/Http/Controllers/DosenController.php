@@ -18,7 +18,22 @@ class DosenController extends Controller
     {
         //
         $user = auth()->user();
-        $userData = $user->kaprodi;
+        $userData = null;
+
+        switch ($user->role) {
+            case 'kaprodi':
+                $userData = $user->kaprodi;
+                break;
+            case 'dosen':
+                $userData = $user->dosen;
+                break;
+            case 'mahasiswa':
+                $userData = $user->mahasiswa;
+                break;
+            default:
+            $userData = null;
+        }       
+
 
         $lecturers = Dosen::all();
 

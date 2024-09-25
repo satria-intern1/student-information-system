@@ -69,6 +69,24 @@ class MahasiswaController extends Controller
         //
     }
 
+    public function displayForm()
+    {
+        $user = auth()->user();
+        $userData = $user->kaprodi;
+
+        // $lecturers = Mahasiswa::where(,)->get();
+        $studentsClass = Mahasiswa::get();
+
+
+
+        return view('mahasiswa.mahasiswaManage', [
+            'title' => 'Dashboard',
+            'user' => $user,
+            'userData' => $userData,
+            'students' => $studentsClass,
+        ]);
+    }
+
     public function formtable($id)
     {
         $user = auth()->user();
@@ -110,6 +128,7 @@ class MahasiswaController extends Controller
      
          $student = Mahasiswa::findOrFail($id);
          $student->update([
+             'edit' => false,
              'name' => $validatedData['name'],
              'nim' => $validatedData['nim'],
              'tempat_lahir' => $validatedData['tempat_lahir'],
@@ -150,11 +169,24 @@ class MahasiswaController extends Controller
         $user = auth()->user();
         $userData = $user->mahasiswa;
         
-        return view('editrequest', [
+        return view('mahasiswa.mahasiswaProfil', [
             'title' => 'Dashboard',
             'user' => $user,
             'userData' => $userData,
         ]);
     }
+
+    public function updateEdit(Request $request)
+    {
+        //
+
+     
+         $student = Mahasiswa::findOrFail($request['mahasiswa_id']);
+         $student->update([
+             'edit' => true, 
+         ]);
+
+     
+         return back()->with('success', 'Edit permission updated successfully');    }
 
 }

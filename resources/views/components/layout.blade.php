@@ -10,7 +10,7 @@
     <script defer src="https://cdnjs.cloudflare.com/ajax/libs/alpinejs/3.13.0/cdn.min.js"></script>
 
 </head>
-<body class="bg-gray-100">
+<body class="bg-slate-50">
     <div x-data="{ sidebarOpen: false, dropdownOpen: false, searchOpen: false }">
         <!-- Top Navigation Bar -->
         <x-topnavbar>
@@ -23,7 +23,7 @@
             <x-sidebar>
                 <x-slot:role>{{$role }}</x-slot>
                 
-                @if ($role == 'dosen')
+                @if ($role == 'dosen' || $role == 'mahasiswa')
                     <x-slot:kelasId>{{ $kelasId}}</x-slot>
                 @endif
 

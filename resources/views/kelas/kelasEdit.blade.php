@@ -4,9 +4,9 @@
     <x-slot:name>{{ $userData['name'] }}</x-slot>
     <x-slot:email>{{ $user['email'] }}</x-slot>
     <x-slot:role>{{ $user['role'] }}</x-slot>
-    @if ($user['role'] == 'dosen')
-    <x-slot:kelasId>{{ $userData['kelas_id'] ?? 'none'}}</x-slot>
-@endif
+    @if ($user['role'] == 'dosen' || $user['role'] == 'mahasiswa')
+        <x-slot:kelasId>{{ $userData['kelas_id'] ?? 'none'}}</x-slot>
+    @endif
     
     
 

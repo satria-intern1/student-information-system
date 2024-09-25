@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Kelas;
+use App\Models\Mahasiswa;
 use App\Models\Requestletter;
 use Illuminate\Http\Request;
 
@@ -10,9 +12,24 @@ class RequestletterController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index($kelasId)
     {
         //
+        $user = auth()->user();
+        $userData = $user->dosen;
+
+        $className = Kelas::where('id', $kelasId)->value('name');
+
+        $reqLetters = Requestletter::where('kelas_id', $kelasId)->get();
+
+        return view('reqletter.reqList', [
+            'title' => 'Dashboard',
+            'user' => $user,
+            'userData' => $userData,
+            'className' => $className,
+            'reqLetters' => $reqLetters,
+
+        ]);
     }
 
     /**
@@ -21,6 +38,21 @@ class RequestletterController extends Controller
     public function create()
     {
         //
+        $user = auth()->user();
+        $userData = $user->mahasiswa;
+        $isMadeReq = ($userData->requestletter)? true : false;
+        $isApproved = $userData['edit'];
+
+        return view('reqletter.reqForm', [
+            'title' => 'Dashboard',
+            'user' => $user,
+            'userData' => $userData,
+            'isMadeReq' => $isMadeReq,
+            'isApproved' => $isApproved,
+            
+
+        ]);
+
     }
 
     /**
@@ -29,6 +61,26 @@ class RequestletterController extends Controller
     public function store(Request $request)
     {
         //
+
+        $validatedData = $request->validate([
+            'keterangan' => ['required', 'string' , 'max:255'],
+
+
+            
+
+        ]);        
+
+        Requestletter::Create(
+            [
+                'kelas_id' => $request['kelas_id'],
+                'mahasiswa_id' => $request['mahasiswa_id'],
+                'keterangan' => $validatedData['keterangan'],
+            ]
+        );
+
+ 
+        return back();
+
     }
 
     /**
@@ -58,8 +110,21 @@ class RequestletterController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Requestletter $requestletter)
+    public function destroy(Request $request)
     {
         //
+        try {
+            $letter = Requestletter::findOrFail($request['reqLetter_id']);
+            $letter->delete();
+
+            return back()->with('success', 'request edit deleted successfully.');
+        } catch (\Exception $e) {
+            return back()->with('error', 'Failed to delete request edit. ' . $e->getMessage());
+        }
+
     }
+
+ 
+
+
 }
