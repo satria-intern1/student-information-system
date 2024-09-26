@@ -8,9 +8,25 @@
         <x-slot:kelasId>{{ $userData['kelas_id'] ?? 'none'}}</x-slot>
     @endif
     
-    
+    @if ($errors->any())
+    <x-alert-error>
+        @foreach ($errors->all() as $error)
+            <li class="text-red-700 text-base leading-relaxed">
+                {{ $error }}</li>
+        @endforeach
+    </x-alert-error>
+    @endif
 
-    {{-- Add Class Button --}}
+    @if (session('success'))
+    <x-alert-success>
+        {{ session('success') }}
+    </x-alert-success>
+    @endif
+
+
+
+    
+    <!-- Add Class Button -->
     <x-addbutton-modalform>
         <x-slot:buttonText>Add New Class</x-slot:buttonText>
         <x-slot:route>{{ route('kelas.add')}}</x-slot:route>
@@ -28,8 +44,8 @@
     <!-- Table Container -->
     <div x-data="{ showDeleteModal: false, classToDelete: null }" class="px-4 sm:px-6 lg:px-8">
         <div class="overflow-x-auto shadow-md sm:rounded-lg">
-            <table class="w-full text-sm text-left rtl:text-right text-gray-500">
-                <thead class="text-xs text-gray-700 uppercase bg-gray-100">
+            <table class="w-full text-sm text-left shadom-md text-gray-500">
+                <thead class="text-xs text-gray-700 uppercase bg-slate-50">
                     <tr>
                         <th scope="col" class="px-6 py-3">No.</th>
                         <th scope="col" class="px-6 py-3">Class Name</th>
@@ -49,7 +65,7 @@
                 </thead>
                 <tbody>
                     @foreach ($classes as $class)
-                    <tr class="bg-white border-b hover:bg-gray-50" x-data="{ 
+                    <tr class="bg-white border-b hover:bg-slate-50" x-data="{ 
                         editing: false, 
                         className: '{{ $class['name'] }}', 
                         classCapacity: '{{ $class['jumlah'] }}',
@@ -80,16 +96,16 @@
                                 <template x-if="!editing">
                                     <div class="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-2">
                                         <button @click="editing = true" 
-                                                class="px-3 py-1 text-sm font-medium text-white bg-sky-600 rounded-md hover:bg-sky-700 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:ring-offset-2">
+                                                class="px-3 py-1 text-sm font-medium text-white bg-indigo-500 rounded-md hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:ring-offset-2">
                                             Edit
                                         </button>
                                         <a href="{{route('kelas.fill', $class->id)}}">
-                                            <button class="px-3 py-1 text-sm font-medium text-white bg-yellow-500 rounded-md hover:bg-yellow-600 focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:ring-offset-2">
+                                            <button class="px-3 py-1 text-sm font-medium text-white bg-amber-300 rounded-md hover:bg-amber-400 focus:outline-none focus:ring-2 focus:ring-amber-200 focus:ring-offset-2">
                                                 Fill
                                             </button>
                                         </a>
                                         <button @click="showDeleteModal = true; classToDelete = {{ $class->id }}"
-                                            class="px-3 py-1 text-sm font-medium text-white bg-pink-600 rounded-md hover:bg-pink-700 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:ring-offset-2">
+                                            class="px-3 py-1 text-sm font-medium text-white bg-red-500 rounded-md hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-400 focus:ring-offset-2">
                                             Delete
                                         </button>
                                     </div>

@@ -7,7 +7,22 @@
         <x-slot:kelasId>{{ $userData['kelas_id'] ?? 'none'}}</x-slot>
     @endif
 
-    <div class="max-w-md mr-auto bg-white rounded-xl shadow-md overflow-hidden md:max-w-2xl m-4">
+    @if ($errors->any())
+    <x-alert-error>
+        @foreach ($errors->all() as $error)
+            <li class="text-red-700 text-base leading-relaxed">
+                {{ $error }}</li>
+        @endforeach
+    </x-alert-error>
+    @endif
+
+    @if (session('success'))
+    <x-alert-success>
+        {{ session('success') }}
+    </x-alert-success>
+    @endif
+
+    <div class="max-w-2xl mx-auto bg-white rounded-xl shadow-md overflow-hidden md:max-w-2xl m-4">
         <div class="p-8">
             <form x-data="{ 
                 showModal: false,

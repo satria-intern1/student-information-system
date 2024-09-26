@@ -11,7 +11,7 @@
     <!-- Table Container -->
     <div class="px-4 sm:px-6 lg:px-8">
         <div class="overflow-x-auto shadow-md sm:rounded-lg">
-            <header class="p-6 border-b border-gray-200">
+            <header class="p-6 border-b border-t border-gray-200 bg-slate-100">
                 <h2 class="text-2xl font-semibold text-gray-900">List of Student</h2>
                 <div class="mt-2">
                     <p class="text-sm font-medium text-gray-600">Total Students
@@ -23,7 +23,7 @@
                 </div>
               </header>
             <table class="w-full text-sm text-left text-gray-500">
-                <thead class="text-xs text-gray-700 uppercase bg-gray-100 ">
+                <thead class="text-xs text-gray-700 uppercase bg-slate-50 ">
                     <tr>
                         <th scope="col" class="px-6 py-3">No.</th>
                         <th scope="col" class="px-6 py-3">Student NIM</th>
@@ -46,7 +46,7 @@
                 </thead>
                 <tbody>
                     @foreach ($students as $student)
-                    <tr class="bg-white border-b hover:bg-gray-50">
+                    <tr class="bg-white border-b hover:bg-slate-50">
                         <td class="px-6 py-4">{{ $loop->iteration }}</td>
                         <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
                             <div class="flex items-center justify-center">

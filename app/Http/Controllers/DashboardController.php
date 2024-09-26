@@ -37,4 +37,30 @@ class DashboardController extends Controller
             'userData' => $userData,
         ]);
     }
+
+    public function displayProfile() {
+
+        $user = auth()->user();
+        $userData = null;
+
+        //retrieve data based on role
+        switch ($user->role) {
+            case 'kaprodi':
+                $userData = $user->kaprodi;
+                break;
+            case 'dosen':
+                $userData = $user->dosen;
+                break;
+            default:
+            $userData = null;
+        }       
+        
+        return view('profile', [
+            'title' => 'Dashboard',
+            'user' => $user,
+            'userData' => $userData,
+        ]);
+    }
+
+
 }

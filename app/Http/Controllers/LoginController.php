@@ -20,13 +20,24 @@ class LoginController extends Controller
     public function authenticate(Request $request): RedirectResponse
     {
         $credentials = $request->validate([
-            'username' => ['required', 'min:6'],
+            'someText' => ['required', 'string' ,'min:3'],
             'password' => ['required',],
         ]);
 
-        if (Auth::attempt($credentials)) {
+        $identifier = $credentials['someText'];
+        $password = $credentials['password'];
+    
+        // Determine if the identifier is an email or username
+        $fieldType = filter_var($identifier, FILTER_VALIDATE_EMAIL) ? 'email' : 'username';
+
+        // if (Auth::attempt($credentials)) {
+        //     $request->session()->regenerate();
+        //     return redirect()->intended('dashboard');
+        // }
+
+        if (Auth::attempt([$fieldType => $identifier, 'password' => $password])) {
             $request->session()->regenerate();
- 
+    
             return redirect()->intended('dashboard');
         }
  

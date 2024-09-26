@@ -10,7 +10,7 @@
     <script defer src="https://cdnjs.cloudflare.com/ajax/libs/alpinejs/3.13.0/cdn.min.js"></script>
 
 </head>
-<body class="bg-slate-50">
+<body class="bg-gray-100">
     <div x-data="{ sidebarOpen: false, dropdownOpen: false, searchOpen: false }">
         <!-- Top Navigation Bar -->
         <x-topnavbar>

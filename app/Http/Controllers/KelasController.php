@@ -6,8 +6,6 @@ use App\Models\Kelas;
 use App\Models\Mahasiswa;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\Http\Requests\StoreKelasRequest;
-use App\Http\Requests\UpdateKelasRequest;
 use App\Models\Dosen;
 
 class KelasController extends Controller
@@ -17,27 +15,11 @@ class KelasController extends Controller
      */
     public function index()
     {
-        //
-        // mahasiswa
-        // class name, class capacity
-        // lecturer name and email
-        // //
-
-        // lecturer
-        // class name, class capacity,
-        // student that attach, with their email and nim ?
-        // lecturer name that attach with their email
-
-        // kaprodi
-        // class name, class capacity,
-        // lecturer that teach, with their email,
-        // student that attach, with their email and nim
-
 
         $user = auth()->user();
         $userData = null;
 
-        $classes = Kelas::all();
+        $classes = Kelas::get();
         // dd($classes);
         // Kelas::all()->mahasiswa->where())
 
@@ -68,26 +50,10 @@ class KelasController extends Controller
     public function formtable()
     {
         $user = auth()->user();
-        $userData = null;
+        $userData = $user->kaprodi;
 
         $classes = Kelas::all();
-        // dd($classes);
-        // Kelas::all()->mahasiswa->where())
-
-        // retrieve data based on role
-        switch ($user->role) {
-            case 'kaprodi':
-                $userData = $user->kaprodi;
-                break;
-            case 'dosen':
-                $userData = $user->dosen;
-                break;
-            case 'mahasiswa':
-                $userData = $user->mahasiswa;
-                break;
-            default:
-            $userData = null;
-        }
+        
 
 
         return view('kelas.kelasEdit', [
@@ -105,23 +71,22 @@ class KelasController extends Controller
      */
     public function displayFillKelas($classId)
     {
-        //
         $user = auth()->user();
         $userData = $user->kaprodi;
 
-        $class = Kelas::findOrFail($classId);
+        // Eager load relationships
+        $class = Kelas::with([
+            'mahasiswas',
+            'dosen' => function ($query) {
+                $query->limit(1);
+            },
+        ])->findOrFail($classId);
 
-
-        $studentsClass = Mahasiswa::where('kelas_id', $classId)->get();
+        $studentsClass = $class->mahasiswas;
         $remainingStd = Mahasiswa::whereNull('kelas_id')->get();
 
-        $lecturerClass = Dosen::where('kelas_id', $classId)->first(); 
+        $lecturerClass = $class->dosen->first(); 
         $lecturers = Dosen::all();
-
-        $selectedId = $lecturerClass ? $lecturerClass->id : null;
-
-
-        
 
         return view('kelas.kelasFill', [
             'title' => 'Dashboard',
@@ -132,7 +97,6 @@ class KelasController extends Controller
             'remainingStudents' => $remainingStd,
             'lecturerClass' => $lecturerClass,
             'lecturers' => $lecturers,
-            
         ]);
     }
 
@@ -152,7 +116,7 @@ class KelasController extends Controller
         Kelas::Create($validatedData);
 
  
-        return redirect(route('kelas.edit'));
+        return back()->with('success', 'Lecturer added successfully');
 
     }
 
@@ -188,7 +152,7 @@ class KelasController extends Controller
             'jumlah' => $validatedData['jumlah'],
         ]);
     
-        return redirect()->route('kelas.edit')->with('success', 'Class updated successfully');
+        return back()->with('success', 'Class updated successfully');
     }
 
     /**
@@ -196,13 +160,10 @@ class KelasController extends Controller
      */
     public function destroy($id)
     {
-        try {
-            $kelas = Kelas::findOrFail($id);
-            $kelas->delete();
+        $kelas = Kelas::findOrFail($id);
+        $kelas->delete();
 
-            return redirect()->route('kelas.edit')->with('success', 'Class deleted successfully.');
-        } catch (\Exception $e) {
-            return redirect()->route('kelas.edit')->with('error', 'Failed to delete class. ' . $e->getMessage());
-        }
+        return back()->with('success', 'Class deleted successfully.');
+
     }
 }

@@ -7,15 +7,37 @@
         <x-slot:kelasId>{{ $userData['kelas_id'] ?? 'none'}}</x-slot>
     @endif
 
+    @if ($errors->any())
+    <x-alert-error>
+        @foreach ($errors->all() as $error)
+            <li class="text-red-700 text-base leading-relaxed">
+                {{ $error }}</li>
+        @endforeach
+    </x-alert-error>
+    @endif
+
+    @if (session('success'))
+    <x-alert-success>
+        {{ session('success') }}
+    </x-alert-success>
+    @endif
+
 
    
     
-    <div class="max-w-md mr-auto bg-white rounded-xl shadow-md overflow-hidden md:max-w-2xl m-4">
+    <div class="max-w-lg mx-auto bg-white rounded-xl shadow-md overflow-hidden md:max-w-3xl m-4">
         <div class="p-8">
             <!-- Show kelas name -->
             <h2 class="text-xl font-bold mb-4">{{$className}}</h2>
-    
+
+            
+            @if ($reqLetters->count() == 0)
+                <p>Tidak ada pengajuan pengubahan data.</p>
+            @endif
+
+
             @foreach ($reqLetters as $reqLetter)
+
                 <div class="mb-4 p-4 border rounded-lg">
                     <!-- Show student name -->
                     <p class="text-lg font-semibold"> {{ $reqLetter->mahasiswa->name }}</p>

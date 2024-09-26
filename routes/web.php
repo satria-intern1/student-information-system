@@ -9,6 +9,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\MahasiswaController;
 use App\Http\Controllers\RequestletterController;
 use App\Models\Mahasiswa;
+use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
 /*
 |--------------------------------------------------------------------------
@@ -65,11 +66,14 @@ Route::middleware('auth')->group(function () {
         Route::put('/update/{id}', [MahasiswaController::class, 'update'])->name('mahasiswa.update');
         
         Route::put('/update-class/{id}', [MahasiswaController::class, 'updateClass'])->name('mahasiswa.update.class')->middleware('role:kaprodi');
+        Route::put('/detach/{id}', [MahasiswaController::class, 'detach'])->name('mahasiswa.detach')->middleware('role:dosen');
         
     });
 
-    //untuk profile
-    Route::get('/profil', [MahasiswaController::class, 'displayReqEdit'])->name('mahasiswa.getProfile')->middleware('role:mahasiswa');
+    Route::get('/profil/mahasiswa', [MahasiswaController::class, 'displayReqEdit'])->name('mahasiswa.getProfile')->middleware('role:mahasiswa');
+    Route::get('/profil', [DashboardController::class, 'displayProfile'])->name('common.getProfile')->middleware('role:dosen,kaprodi');
+
+    
     Route::get('/request-edit-form', [RequestletterController::class, 'create'])->name('reqletter.form')->middleware('role:mahasiswa');
     Route::post('/request-edit-form', [RequestletterController::class, 'store'])->name('reqCreate')->middleware('role:mahasiswa');
 

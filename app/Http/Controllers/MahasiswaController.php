@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Models\Kelas;
 use App\Models\Mahasiswa;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 class MahasiswaController extends Controller
 {
@@ -59,8 +62,51 @@ class MahasiswaController extends Controller
     public function store(Request $request)
     {
         //
-    }
 
+        $validatedData = $request->validate([
+            'name' => ['required', 'string','min:1' , 'max:255'],
+            'nim' => ['required', 'integer', 'min:0',],
+            'tempat_lahir' => ['required', 'string', ],
+            'tanggal_lahir' => ['required', 'date', ],
+         ]);
+            // Split the name and take the first two words
+            $splitNameToArray = explode(' ', $validatedData['name']);
+            $firstTwoWords = implode(' ', array_slice($splitNameToArray, 0, 2));
+
+            // Generate username and email
+            $username = Str::slug($firstTwoWords);
+            $email = $username . '@student.university.ac.id';
+
+
+            
+            //Create a new user
+            $user = User::create(
+                [
+                    'username' => $username,
+                    'email' => $email,
+                    'password'=> Hash::make('password'),
+                    'role' => 'mahasiswa',
+                ]
+            );
+
+            // Create a new student
+
+        Mahasiswa::Create(
+            [
+                'user_id' => $user->id,
+                'kelas_id' => null,
+                'edit' => false,
+                'name' => $validatedData['name'],
+                'nim' => $validatedData['nim'],
+                'tempat_lahir' => $validatedData['tempat_lahir'],
+                'tanggal_lahir' => $validatedData['tanggal_lahir'],
+            ]
+        );
+
+ 
+        return back()->with('success', 'Student added successfully');
+
+    }
     /**
      * Display the specified resource.
      */
@@ -95,13 +141,16 @@ class MahasiswaController extends Controller
         // $lecturers = Mahasiswa::where(,)->get();
         $studentsClass = Mahasiswa::where('kelas_id', $id)->with('kelas')->get();
 
+        $class = Kelas::where('id', $id)->first();
 
 
-        return view('mahasiswa.mahasiswaEdit', [
+
+        return view('mahasiswa.mahasiswaEditKelas', [
             'title' => 'Dashboard',
             'user' => $user,
             'userData' => $userData,
             'students' => $studentsClass,
+            'class' => $class,
         ]);
     }
 
@@ -136,15 +185,19 @@ class MahasiswaController extends Controller
  
          ]);
      
-         return back()->with('success', 'Class updated successfully');
+         return back()->with('success', 'Student updated successfully');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Mahasiswa $mahasiswa)
+    public function destroy($id)
     {
         //
+        $student = Mahasiswa::findOrFail($id);
+        $student->delete();
+
+        return back()->with('success', 'Student deleted successfully.');
     }
 
 
@@ -161,7 +214,18 @@ class MahasiswaController extends Controller
             Mahasiswa::whereIn('id', $selectedStudents)->update(['kelas_id' => $classId]);
         });
 
-        return redirect()->back()->with('success', 'Students assignments updated successfully.');
+        return back()->with('success', 'Students in Class updated successfully.');
+    }
+
+    public function detach($id)
+    {
+        $student = Mahasiswa::findOrFail($id);
+        $student->update([
+             'kelas_id' => null, 
+         ]);
+           
+
+        return back()->with('success', 'Students in Class removed successfully.');
     }
 
     public function displayReqEdit() {
@@ -179,7 +243,6 @@ class MahasiswaController extends Controller
     public function updateEdit(Request $request)
     {
         //
-
      
          $student = Mahasiswa::findOrFail($request['mahasiswa_id']);
          $student->update([

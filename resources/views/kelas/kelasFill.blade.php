@@ -8,10 +8,25 @@
         <x-slot:kelasId>{{ $userData['kelas_id'] ?? 'none'}}</x-slot>
     @endif
     
+
+    @if ($errors->any())
+    <x-alert-error>
+        @foreach ($errors->all() as $error)
+            <li class="text-red-700 text-base leading-relaxed">
+                {{ $error }}</li>
+        @endforeach
+    </x-alert-error>
+    @endif
+
+    @if (session('success'))
+    <x-alert-success>
+        {{ session('success') }}
+    </x-alert-success>
+    @endif
     
 
-   {{-- class info--}}
-   <div class=" mx-auto bg-white rounded-2xl shadow-md  m-4">
+   <!-- class info-->
+   <div class="max-w-5xl mx-auto bg-white rounded-2xl shadow-md  m-4">
       <div class="px-4 py-3 flex justify-between">
             <div>
                 <div class="text-lg uppercase tracking-wide text-blue-600 font-semibold">
@@ -39,13 +54,12 @@
         </div>
    </div>
 
-    <!-- Table Container -->
-   <div>
-        <div>
+    <!-- Table Lecturer -->
+   <div class="2xl:grid 2xl:grid-cols-2 2xl:gap-8">
         <div x-data="{
                 selectedId: {{ $lecturerClass->id ?? 'null' }},
             lecturerClassId: {{ $lecturerClass->id ?? 'null' }},
-            isChanged: false,
+            isChangedA: false,
             submitForm() {
                 document.getElementById('assign-lecturer-form').submit();
             },
@@ -60,22 +74,31 @@
                 return this.selectedId !== lecturerId;
             },
             handleChange(event, lecturerId) {
-                this.isChanged = true;
+                this.isChangedA = true;
                 if (event.target.checked) {
                     this.selectedId = lecturerId;
                 } else {
                     this.selectedId = null;
                 }
             }
-        }">
+        }"class="mb-8">
             <form id="assign-lecturer-form" method="POST" action="{{ route('dosen.update.class' , $class['id'])}}">
                 @csrf
                 @method('PUT')
                 <input type="hidden" name="selectedId" x-bind:value="JSON.stringify(selectedId)">
                 <input type="hidden" name="class_id" value="{{ $class['id'] }}">
-                <div class="overflow-x-auto shadow-md sm:rounded-lg">
-                    <table class="w-full text-sm text-left text-gray-500">
-                        <thead class="text-xs text-gray-700 uppercase bg-gray-100">
+                <div class=" max-w-5xl 2xl:max-w-4xl mx-auto overflow-x-auto shadow-md sm:rounded-lg">
+                    <header class="p-6 border border-gray-200 bg-slate-100">
+                        <div class="mt-1">
+                            <p class="text-sm font-medium text-gray-800">
+                                List of all lecturer
+                            </p>
+
+                        </div>
+                      </header>
+                    <table class=" w-full text-sm text-left text-gray-500">
+                        
+                        <thead class="text-xs text-gray-700 uppercase bg-slate-50">
                             <tr>
                                 <th scope="col" class="px-6 py-3">Assigned</th>
                                 <th scope="col" class="px-6 py-3">Class Name</th>
@@ -85,7 +108,7 @@
                         </thead>
                         <tbody>
                             @foreach ($lecturers as $lecturer)
-                                <tr class="bg-white border-b hover:bg-gray-50">
+                                <tr class="bg-white border-b hover:bg-slate-50">
                                     <td class="px-6 py-4">
                                         <input type="checkbox" 
                                             :checked="selectedId == {{ $lecturer->id }}"
@@ -103,20 +126,18 @@
                         </tbody>
                     </table>
                 </div>
-                <div class="mt-4 flex justify-end space-x-2">
+                <div x-show="isChangedA" class="mt-4 mb-8 flex justify-end space-x-2">
                     <button @click="cancelChanges" :disabled="!isChanged" class="px-4 py-2 bg-gray-300 text-gray-700 rounded">Cancel</button>
                     <button @click="submitForm"  type='button' :disabled="!isChanged" class="px-4 py-2 bg-blue-500 text-white rounded">Save Changes</button>
                 </div>
             </form>
         </div>
-    </div>
 
-
-    <div>
+    <!-- Table Student -->
             <div x-data="{
                 selectedStudents: [],
                 capacity: {{ $class['jumlah'] }},
-                isChanged: false,
+                isChangedB: false,
                 submitForm() {
                     document.getElementById('assign-students-form').submit();
                 },
@@ -129,7 +150,7 @@
                     return this.selectedStudents.length >= this.capacity && !this.selectedStudents.includes(studentId);
                 },
                 handleChange(event, studentId) {
-                    this.isChanged = true;
+                    this.isChangedB = true;
                     if (event.target.checked) {
                         if (this.selectedStudents.length < this.capacity) {
                             this.selectedStudents.push(studentId);
@@ -142,14 +163,22 @@
                     this.selectedStudents = @json($studentsClass->pluck('id'));
                 }
                 }" x-init="initializeSelectedStudents()">
-                    <form id="assign-students-form" method="POST" action="{{ route('mahasiswa.update.class' , $class['id'])}}">
+                    <form class="-translate-y-4" id="assign-students-form" method="POST" action="{{ route('mahasiswa.update.class' , $class['id'])}}">
                         @csrf
                         @method('PUT')
                         <input type="hidden" name="selected_students" x-bind:value="JSON.stringify(selectedStudents)">
                         <input type="hidden" name="class_id" value="{{ $class['id'] }}">
-                        <div class="mx-auto bg-white rounded-lg shadow-md m-4 overflow-x-auto">
-                            <table class="w-full text-sm text-left rtl:text-right text-gray-500">
-                                <thead class="text-xs text-gray-700 uppercase bg-gray-100">
+                        <div class="max-w-5xl 2xl:max-w-4xl mx-auto rounded-lg shadow-md m-4 overflow-x-auto">
+                            <header class="p-6 border border-gray-200 bg-slate-100">
+                                <div class="mt-1">
+                                    <p class="text-sm font-medium text-gray-800">
+                                        Class Students and Unassigned Students
+                                    </p>
+        
+                                </div>
+                              </header>
+                            <table class="w-full text-sm text-left text-gray-500">
+                                <thead class="text-xs text-gray-700 uppercase bg-slate-50">
                                     <tr>
                                         <th scope="col" class="px-6 py-3">Checkbox</th>
                                         <th scope="col" class="px-6 py-3">
@@ -162,7 +191,7 @@
                                 </thead>
                                 <tbody>
                                     @foreach ($studentsClass as $studentClass)
-                                    <tr class="bg-white border-b hover:bg-gray-50">
+                                    <tr class="bg-white border-b hover:bg-slate-50">
                                         <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
                                             <div class="flex items-center justify-center">
                                                 <input type="checkbox" 
@@ -204,7 +233,7 @@
                             </table>
                         </div>
                         
-                            <div class="mt-4 flex justify-end space-x-2">
+                            <div x-show="isChangedB"class="mt-4 flex justify-end space-x-2">
                                 <button @click="cancelChanges" :disabled="!isChanged" class="px-4 py-2 bg-gray-300 text-gray-700 rounded">Cancel</button>
                                 <button @click="submitForm"  type='button' :disabled="!isChanged" class="px-4 py-2 bg-blue-500 text-white rounded">Save Changes</button>
                             </div>
@@ -212,7 +241,6 @@
 
                 </div>
             
-        </div>
    </div>
 
 </x-layout>

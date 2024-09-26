@@ -7,25 +7,26 @@
     @if ($user['role'] == 'dosen' || $user['role'] == 'mahasiswa')
         <x-slot:kelasId>{{ $userData['kelas_id'] ?? 'none'}}</x-slot>
     @endif
+
+    @if ($errors->any())
+    <x-alert-error>
+        @foreach ($errors->all() as $error)
+            <li class="text-red-700 text-base leading-relaxed">
+                {{ $error }}</li>
+        @endforeach
+    </x-alert-error>
+    @endif
+
+    @if (session('success'))
+    <x-alert-success>
+        {{ session('success') }}
+    </x-alert-success>
+    @endif
     
 
-    {{-- dosen info--}}
-   <div class=" max-w-md bg-white rounded-2xl shadow-md  m-4 lg:mx-8">
-        <div class="px-4 py-3">
-                <div class="text-md uppercase tracking-wide  text-blue-600 font-semibold">
-                    Lecturer Information
-                </div>
-                <p class="text-sm font-medium text-gray-600">Total Lecturer 
-                    <span class="font-semibold text-gray-800">{{ count($lecturers) }}</span>
-                </p>
-                <p class="text-sm font-medium text-gray-600">Lecturer with no classroom
-                    <span class="font-semibold text-gray-800">{{ count($lecturers->where('kelas_id', null)) ??  '0' }}</span>
-                </p>
-        </div>
-    </div>
         
 
-    {{-- Add Class Button --}}
+    <!-- Add Class Button -->
     <x-addbutton-modalform>
         <x-slot:buttonText>Add New Lecturer</x-slot:buttonText>
         <x-slot:route>{{ route('dosen.add')}}</x-slot:route>
@@ -47,8 +48,19 @@
     <!-- Table Container -->
     <div x-data="{ showDeleteModal: false, dosenToDelete: null }" class="px-4 sm:px-6 lg:px-8">
         <div class="overflow-x-auto shadow-md sm:rounded-lg">
+            <header class="p-6 border border-gray-200 bg-slate-100">
+                <h2 class="text-2xl font-semibold text-gray-900">List of Lectures</h2>
+                <div class="mt-2">
+                    <p class="text-sm font-medium text-gray-600">Total Lecturers
+                        <span class="font-semibold text-gray-800">{{ count($lecturers) }}</span>
+                    </p>
+                    <p class="text-sm font-medium text-gray-600">Lecturers with no classroom
+                        <span class="font-semibold text-gray-800">{{ count($lecturers->where('kelas_id', null)) ??  '0' }}</span>
+                    </p>
+                </div>
+              </header>
             <table class="w-full text-sm text-left rtl:text-right text-gray-500">
-                <thead class="text-xs text-gray-700 uppercase bg-gray-100">
+                <thead class="text-xs text-gray-700 uppercase bg-slate-50">
                     <tr>
                         <th scope="col" class="px-6 py-3">No.</th>
                         <th scope="col" class="px-6 py-3">Lecturer Code</th>
@@ -71,7 +83,7 @@
                 </thead>
                 <tbody>
                     @foreach ($lecturers as $lecturer)
-                    <tr class="bg-white border-b hover:bg-gray-50" x-data="{     
+                    <tr class="bg-white border-b hover:bg-slate-50" x-data="{     
                         editing: false, 
                         lecturerCode: '{{ $lecturer['kode_dosen'] }}', originalCode: '{{ $lecturer['kode_dosen'] }}', 
                         lecturerName: '{{ $lecturer['name'] }}', originalName: '{{ $lecturer['name'] }}',
@@ -111,11 +123,11 @@
                                 <template x-if="!editing">
                                     <div class="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-2">
                                         <button @click="editing = true" 
-                                                class="px-3 py-1 text-sm font-medium text-white bg-blue-600 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
+                                                class="px-3 py-1 text-sm font-medium text-white bg-indigo-500 rounded-md hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:ring-offset-2">
                                             Edit
                                         </button>
                                         <button @click="showDeleteModal = true; dosenToDelete = {{ $lecturer['id'] }}"
-                                            class="px-3 py-1 text-sm font-medium text-white bg-red-600 rounded-md hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2">
+                                            class="px-3 py-1 text-sm font-medium text-white bg-red-500 rounded-md hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-400 focus:ring-offset-2">
                                             Delete
                                         </button>
                                     </div>
@@ -132,6 +144,12 @@
                                         <button type="submit"
                                                 class="px-3 py-1 text-sm font-medium text-white bg-green-600 rounded-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2">
                                             Confirm
+                                        </button>
+                                        <button type="button"
+                                                @click="editing = false;
+                                                lecturerCode = originalCode; lecturerName = originalName; lecturerNIP = originalNIP;"
+                                                class="px-3 py-1 text-sm font-medium text-white bg-gray-600 rounded-md hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2">
+                                            Cancel
                                         </button>
                                         
                                     </form>
@@ -176,9 +194,9 @@
                                 </svg>
                             </div>
                             <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
-                                <h3 class="text-lg leading-6 font-medium text-gray-900" id="modal-title">Delete Class</h3>
+                                <h3 class="text-lg leading-6 font-medium text-gray-900" id="modal-title">Delete Lecturer</h3>
                                 <div class="mt-2">
-                                    <p class="text-sm text-gray-500">Are you sure you want to delete this class? This action cannot be undone.</p>
+                                    <p class="text-sm text-gray-500">Are you sure you want to delete this lecturer? This action cannot be undone.</p>
                                 </div>
                             </div>
                         </div>

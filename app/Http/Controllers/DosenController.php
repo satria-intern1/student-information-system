@@ -74,7 +74,7 @@ class DosenController extends Controller
 
             // Generate username and email
             $username = Str::slug($firstTwoWords);
-            $email = $username . '@university.ac.id';
+            $email = $username . '@lecturer.university.ac.id';
 
             // Generate default password using kode dosen
             // $password = $validatedData['kode_dosen'];
@@ -104,7 +104,7 @@ class DosenController extends Controller
         );
 
  
-        return redirect(route('dosen.edit'));
+        return back()->with('success', 'Lecturer added successfully');
 
     }
 
@@ -162,7 +162,7 @@ class DosenController extends Controller
 
         ]);
     
-        return redirect()->route('dosen.edit')->with('success', 'Class updated successfully');
+        return back()->with('success', 'Lecturer updated successfully');
     }
 
     /**
@@ -171,14 +171,10 @@ class DosenController extends Controller
     public function destroy($id)
     {
         //
-        try {
-            $lecturer = Dosen::findOrFail($id);
-            $lecturer->delete();
+        $lecturer = Dosen::findOrFail($id);
+        $lecturer->delete();
 
-            return redirect()->route('dosen.edit')->with('success', 'Lecturer deleted successfully.');
-        } catch (\Exception $e) {
-            return redirect()->route('dosen.edit')->with('error', 'Failed to delete lecturer. ' . $e->getMessage());
-        }
+        return back()->with('success', 'Lecturer deleted successfully.');
     }
 
 
@@ -197,6 +193,6 @@ class DosenController extends Controller
             Dosen::where('id', $selectedLecturer)->update(['kelas_id' => $classId]);
         }
 
-        return redirect()->back()->with('success', 'Lecturers assignments updated successfully.');
+        return back()->with('success', 'Lecturer in Class updated successfully.');
     }
 }
