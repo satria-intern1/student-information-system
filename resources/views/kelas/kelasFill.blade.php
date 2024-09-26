@@ -36,18 +36,18 @@
                 </div>
                 <div class="mt-2 text-gray-500">
                     <div>
-                        <p><span class="font-semibold">Nama Dosen: </span> <a href="">{{ $lecturerClass['name'] ??'none'}}</a></p>
+                        <p><span class="font-semibold">Dosen Wali: </span> <a href="">{{ $lecturerClass['name'] ??'none'}}</a></p>
                         <p><span class="font-semibold">Email: </span> <a href="mailto:{{ $lecturerClass->user->email ?? ' '}}">{{$lecturerClass->user->email ?? 'none' }}</a></p>
                     </div>
                 </div>
             </div>
             <div class="text-right">
                 <div class="mb-2">
-                    <p class="text-sm text-gray-600">Capacity</p>
+                    <p class="text-sm text-gray-600">Kapasitas</p>
                     <p class="font-semibold text-gray-800">{{ $class['jumlah'] }}</p>
                 </div>
                 <div>
-                    <p class="text-sm text-gray-600">Total student</p>
+                    <p class="text-sm text-gray-600">Total Mahasiswa</p>
                     <p class="font-semibold text-gray-800">{{ count($class->mahasiswas)}}</p>
                 </div>
             </div>
@@ -91,7 +91,7 @@
                     <header class="p-6 border border-gray-200 bg-slate-100">
                         <div class="mt-1">
                             <p class="text-sm font-medium text-gray-800">
-                                List of all lecturer
+                                List semua dosen
                             </p>
 
                         </div>
@@ -172,7 +172,7 @@
                             <header class="p-6 border border-gray-200 bg-slate-100">
                                 <div class="mt-1">
                                     <p class="text-sm font-medium text-gray-800">
-                                        Class Students and Unassigned Students
+                                        Mahasiswa kelas ini dan mahasiswa yang belum dapat kelas
                                     </p>
         
                                 </div>

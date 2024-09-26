@@ -29,10 +29,10 @@
                 <hr>
             </div>
         </div>
-        <div class="min-h-screen md:w-2/5 flex md:bg-slate-200">
+        <div class="min-h-screen md:w-2/5 flex md:bg-white">
             <div class="m-auto p-16">
                 <div class="sm:mx-auto sm:w-full sm:max-w-sm">
-                    <img class="mx-auto h-10 w-auto" src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600" alt="Your Company">
+                    <img class="mx-auto h-10 w-auto" src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600" alt="Logo">
                     <h2 class="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-black">Student Management System</h2>
                 </div>
             

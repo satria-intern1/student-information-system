@@ -94,7 +94,7 @@
 
                 <!-- Message for non-editable form -->
                 <div x-show="!isEditable" class="mt-4 text-red-600">
-                    Please make a request to your lecturer to edit your data. Wait until your request is accepted to proceed with the edits.
+                    Silakan ajukan permintaan kepada dosen Anda untuk mengedit data Anda. Tunggu hingga permintaan Anda diterima untuk melanjutkan pengeditan.
                 </div>
 
                 <!-- Confirmation Modal -->

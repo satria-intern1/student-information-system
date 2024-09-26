@@ -85,7 +85,8 @@ class KelasController extends Controller
         $studentsClass = $class->mahasiswas;
         $remainingStd = Mahasiswa::whereNull('kelas_id')->get();
 
-        $lecturerClass = $class->dosen->first(); 
+
+        $lecturerClass = $class->dosen ? $class->dosen->first() : 'none'; 
         $lecturers = Dosen::all();
 
         return view('kelas.kelasFill', [

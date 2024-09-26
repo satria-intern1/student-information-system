@@ -34,7 +34,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
-    Route::prefix('class')->group(function () {
+    Route::prefix('kelas')->group(function () {
         Route::get('/list', [KelasController::class, 'index'])->name('kelas.list');
 
         Route::get('/manage', [KelasController::class, 'formtable'])->name('kelas.edit')->middleware('role:kaprodi');
@@ -42,6 +42,11 @@ Route::middleware('auth')->group(function () {
         Route::post('/add', [KelasController::class, 'store'])->name('kelas.add')->middleware('role:kaprodi');
         Route::delete('/delete/{id}', [KelasController::class, 'destroy'])->name('kelas.delete')->middleware('role:kaprodi');
         Route::put('/update/{id}', [KelasController::class, 'update'])->name('kelas.update')->middleware('role:kaprodi');
+
+        Route::get('/{id}/edit-request-list', [RequestletterController::class, 'index'])->name('reqletter.index')->middleware('role:dosen');
+        Route::put('/{id}/edit-request-list/update-edit', [MahasiswaController::class, 'updateEdit'])->name('reqletter.updateEdit')->middleware('role:dosen');
+        Route::delete('/{id}/edit-request-list/delete', [RequestletterController::class, 'destroy'])->name('reqletter.destroy')->middleware('role:dosen');
+
     });
 
     Route::prefix('dosen')->group(function () {
@@ -73,14 +78,10 @@ Route::middleware('auth')->group(function () {
     Route::get('/profil/mahasiswa', [MahasiswaController::class, 'displayReqEdit'])->name('mahasiswa.getProfile')->middleware('role:mahasiswa');
     Route::get('/profil', [DashboardController::class, 'displayProfile'])->name('common.getProfile')->middleware('role:dosen,kaprodi');
 
-    
     Route::get('/request-edit-form', [RequestletterController::class, 'create'])->name('reqletter.form')->middleware('role:mahasiswa');
     Route::post('/request-edit-form', [RequestletterController::class, 'store'])->name('reqCreate')->middleware('role:mahasiswa');
 
-    Route::get('/kelas/{id}/edit-request-list', [RequestletterController::class, 'index'])->name('reqletter.index')->middleware('role:dosen');
-    Route::put('/kelas/{id}/edit-request-list/update-edit', [MahasiswaController::class, 'updateEdit'])->name('reqletter.updateEdit')->middleware('role:dosen');
-    Route::delete('/kelas/{id}/edit-request-list/delete', [RequestletterController::class, 'destroy'])->name('reqletter.destroy')->middleware('role:dosen');
-
+    
 
 
 });

@@ -27,13 +27,13 @@
     <div class="px-4 sm:px-6 lg:px-8">
         <div class="overflow-x-auto shadow-md sm:rounded-lg">
             <header class="p-6 border-b border-t border-gray-200 bg-slate-100">
-                <h2 class="text-2xl font-semibold text-gray-900">List of Lectures</h2>
+                <h2 class="text-2xl font-semibold text-gray-900">List Dosen</h2>
                 <div class="mt-2">
-                    <p class="text-sm font-medium text-gray-600">Total Lecturers
+                    <p class="text-sm font-medium text-gray-600">Total Dosen
                         <span class="font-semibold text-gray-800">{{ count($lecturers) }}</span>
                     </p>
-                    <p class="text-sm font-medium text-gray-600">Lecturers with no classroom
-                        <span class="font-semibold text-gray-800">{{ count($lecturers->where('kelas_id', null)) ??  '0' }}</span>
+                    <p class="text-sm font-medium text-gray-600">Total Dosen Wali
+                        <span class="font-semibold text-gray-800">{{ count($lecturers->whereNotNull('kelas_id'))}}</span>
                     </p>
                 </div>
               </header>
@@ -41,15 +41,23 @@
                 <thead class="text-xs text-gray-700 uppercase bg-slate-50">
                     <tr>
                         <th scope="col" class="px-6 py-3">No.</th>
-                        <th scope="col" class="px-6 py-3">Lecturer Code</th>
+
+                        @if ($user['role'] != 'mahasiswa')    
+                        <th scope="col" class="px-6 py-3">Kode Dosen</th>
+                        @endif
+
                         <th scope="col" class="px-6 py-3">
-                            <div class="flex items-center justify-center">Lecturer Name</div>
+                            <div class="flex items-center justify-center">Nama Dosen</div>
                         </th>
+
+                        @if ($user['role'] != 'mahasiswa')    
                         <th scope="col" class="px-6 py-3">
-                            <div class="flex items-center justify-center">Lecturer NIP</div>
+                            <div class="flex items-center justify-center">NIP</div>
                         </th>
+                        @endif
+
                         <th scope="col" class="px-6 py-3">
-                            <div class="flex items-center justify-center">Classroom</div>
+                            <div class="flex items-center justify-center">Kelas</div>
                         </th>
                         <th scope="col" class="px-6 py-3">
                             <div class="flex items-center justify-center">Email</div>
@@ -60,12 +68,16 @@
                     @foreach ($lecturers as $lecturer)
                     <tr class="bg-white border-b hover:bg-slate-50" >
                         <td class="px-6 py-4">{{ $loop->iteration }}</td>
+
+                        @if ($user['role'] != 'mahasiswa')    
                         <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
                             <div class="flex items-center justify-center">
                                 <span>{{ $lecturer['kode_dosen'] }}</span>
                                 
                             </div>
                         </th>
+                        @endif
+
                         <td class="px-6 py-4">
                             <div class="flex items-center justify-center">
                                 <span>{{ $lecturer['name'] }}</span>
@@ -73,12 +85,15 @@
                             </div>
                         </td>
 
+                        @if ($user['role'] != 'mahasiswa')    
                         <td class="px-6 py-4">
                             <div class="flex items-center justify-center">
                                 <span>{{ $lecturer['nip'] }}</span>
                             
                             </div>
                         </td>
+                        @endif
+
                         <td class="px-6 py-4">
                             <div class="flex items-center justify-center {{ !$lecturer->kelas ? 'text-red-500' : '' }}">{{ $lecturer->kelas->name ?? 'not assigned'}}</div>
                         </td>

@@ -26,18 +26,18 @@
                     </div>
                     <div class="mt-2 text-gray-500">
                         <div>
-                            <p><span class="font-semibold">Nama Dosen: </span> <a href="">{{ $class->dosen->name ??'none'}}</a></p>
+                            <p><span class="font-semibold">Dosen Wali: </span> <a href="">{{ $class->dosen->name ??'none'}}</a></p>
                             <p><span class="font-semibold">Email: </span> <a href="mailto:{{ $class->dosen->user->email ?? ' '}}">{{ $class->dosen->user->email ?? 'none' }}</a></p>
                         </div>
                     </div>
                 </div>
                 <div class="text-right">
                     <div class="mb-2">
-                        <p class="text-sm text-gray-600">Capacity</p>
+                        <p class="text-sm text-gray-600">Kapasitas</p>
                         <p class="font-semibold text-gray-800">{{ $class['jumlah'] }}</p>
                     </div>
                     <div>
-                        <p class="text-sm text-gray-600">Total student</p>
+                        <p class="text-sm text-gray-600">Total Mahasiswa</p>
                         <p class="font-semibold text-gray-800">{{ count($class->mahasiswas)}}</p>
                     </div>
                 </div>

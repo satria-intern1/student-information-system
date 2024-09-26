@@ -28,15 +28,15 @@
     
     <!-- Add Class Button -->
     <x-addbutton-modalform>
-        <x-slot:buttonText>Add New Class</x-slot:buttonText>
+        <x-slot:buttonText>Tambah Kelas Baru</x-slot:buttonText>
         <x-slot:route>{{ route('kelas.add')}}</x-slot:route>
 
         <div class="mb-4">
-            <label for="className" class="block text-gray-700 text-sm font-bold mb-2">Class Name:</label>
+            <label for="className" class="block text-gray-700 text-sm font-bold mb-2">Nama Kelas:</label>
             <input type="text" name="name" id="className" required class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
         </div>
         <div class="mb-4">
-            <label for="classCapacity" class="block text-gray-700 text-sm font-bold mb-2">Class Capacity:</label>
+            <label for="classCapacity" class="block text-gray-700 text-sm font-bold mb-2">Kapasitas:</label>
             <input type="number" name="jumlah" id="classCapacity" required class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
         </div>
     </x-addbutton-modalform>
@@ -48,15 +48,15 @@
                 <thead class="text-xs text-gray-700 uppercase bg-slate-50">
                     <tr>
                         <th scope="col" class="px-6 py-3">No.</th>
-                        <th scope="col" class="px-6 py-3">Class Name</th>
+                        <th scope="col" class="px-6 py-3">Nama Kelas</th>
                         <th scope="col" class="px-6 py-3">
-                            <div class="flex items-center justify-center">Class Capacity</div>
+                            <div class="flex items-center justify-center">Kapasitas</div>
                         </th>
                         <th scope="col" class="px-6 py-3">
-                            <div class="flex items-center justify-center">Lecture Name</div>
+                            <div class="flex items-center justify-center">Dosen Wali</div>
                         </th>
                         <th scope="col" class="px-6 py-3">
-                            <div class="flex items-center justify-center">Lecture NIP</div>
+                            <div class="flex items-center justify-center">NIP</div>
                         </th>
                         <th scope="col" class="px-6 py-3">
                             <div class="flex items-center justify-center">Action</div>

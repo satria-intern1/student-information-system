@@ -120,9 +120,10 @@ class MahasiswaController extends Controller
         $user = auth()->user();
         $userData = $user->kaprodi;
 
-        // $lecturers = Mahasiswa::where(,)->get();
-        $studentsClass = Mahasiswa::get();
+        $studentsClass = Mahasiswa::with(['kelas', 'user'])->get();
 
+        $totalStudents = $studentsClass->count();
+        $studentsWithoutClass = $studentsClass->whereNull('kelas_id')->count();
 
 
         return view('mahasiswa.mahasiswaManage', [
@@ -130,26 +131,25 @@ class MahasiswaController extends Controller
             'user' => $user,
             'userData' => $userData,
             'students' => $studentsClass,
+            'totalStudents' => $totalStudents,
+            'studentsWithoutClass' => $studentsWithoutClass,
         ]);
+        
     }
+
+
 
     public function formtable($id)
     {
         $user = auth()->user();
         $userData = $user->dosen;
-
-        // $lecturers = Mahasiswa::where(,)->get();
-        $studentsClass = Mahasiswa::where('kelas_id', $id)->with('kelas')->get();
-
-        $class = Kelas::where('id', $id)->first();
-
-
+        $class = Kelas::with('mahasiswas')->findOrFail($id);
 
         return view('mahasiswa.mahasiswaEditKelas', [
             'title' => 'Dashboard',
             'user' => $user,
             'userData' => $userData,
-            'students' => $studentsClass,
+            'students' => $class->mahasiswas,
             'class' => $class,
         ]);
     }

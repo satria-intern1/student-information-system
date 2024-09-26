@@ -25,23 +25,23 @@
 
     <!-- Add Class Button -->
     <x-addbutton-modalform>
-        <x-slot:buttonText>Add New Student</x-slot:buttonText>
+        <x-slot:buttonText>Tambha Mahasiswa Baru</x-slot:buttonText>
         <x-slot:route>{{ route('mahasiswa.add')}}</x-slot:route>
 
         <div class="mb-4">
-            <label for="name" class="block text-gray-700 text-sm font-bold mb-2">Student Name:</label>
+            <label for="name" class="block text-gray-700 text-sm font-bold mb-2">Nama Mahasiswa:</label>
             <input type="text" name="name" id="name" required class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
         </div>
         <div class="mb-4">
-            <label for="studen-nim" class="block text-gray-700 text-sm font-bold mb-2">Student NIM:</label>
+            <label for="studen-nim" class="block text-gray-700 text-sm font-bold mb-2">NIM:</label>
             <input type="number" name="nim" id="studen-nim" required class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
         </div>
         <div class="mb-4">
-            <label for="birthplace" class="block text-gray-700 text-sm font-bold mb-2">Student Birth Place:</label>
+            <label for="birthplace" class="block text-gray-700 text-sm font-bold mb-2">Tempat Lahir:</label>
             <input type="text" name="tempat_lahir" id="birthplace" required class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
         </div>
         <div class="mb-4">
-            <label for="tanggal-lahir" class="block text-gray-700 text-sm font-bold mb-2">Student Birth Date:</label>
+            <label for="tanggal-lahir" class="block text-gray-700 text-sm font-bold mb-2">Tanggal Lahir:</label>
             <input type="date" name="tanggal_lahir" id="tanggal-lahir" required class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
         </div>
     </x-addbutton-modalform>
@@ -50,13 +50,13 @@
     <div x-data="{ showDeleteModal: false, studentToDelete: null }" class="px-4 sm:px-6 lg:px-8">
         <div class="overflow-x-auto shadow-md sm:rounded-lg">
             <header class="p-6 border-t border-b border-gray-200">
-                <h2 class="text-2xl font-semibold text-gray-900">List of Student</h2>
+                <h2 class="text-2xl font-semibold text-gray-900">List Mahasiswa</h2>
                 <div class="mt-2">
-                    <p class="text-sm font-medium text-gray-600">Total Students
-                        <span class="font-semibold text-gray-800">{{ count($students) }}</span>
+                    <p class="text-sm font-medium text-gray-600">Total Mahasiswa
+                        <span class="font-semibold text-gray-800">{{ $totalStudents }}</span>
                     </p>
-                    <p class="text-sm font-medium text-gray-600">Students with no classroom
-                        <span class="font-semibold text-gray-800">{{ count($students->where('kelas_id', null)) ??  '0'  }}</span>
+                    <p class="text-sm font-medium text-gray-600">Mahasiswa tanpa kelas
+                        <span class="font-semibold text-gray-800">{{ $studentsWithoutClass }}</span>
                     </p>
                     
                 </div>
@@ -65,12 +65,12 @@
                 <thead class="text-xs text-gray-700 uppercase bg-slate-50">
                     <tr>
                         <th scope="col" class="px-6 py-3">No.</th>
-                        <th scope="col" class="px-6 py-3">Student NIM</th>
+                        <th scope="col" class="px-6 py-3">NIM</th>
                         <th scope="col" class="px-6 py-3">
-                            <div class="flex items-center justify-center">Student Name</div>
+                            <div class="flex items-center justify-center">Nama Mahasiswa</div>
                         </th>
                         <th scope="col" class="px-6 py-3">
-                            <div class="flex items-center justify-center">Classroom</div>
+                            <div class="flex items-center justify-center">Kelas</div>
                         </th>
                         <th scope="col" class="px-6 py-3">
                             <div class="flex items-center justify-center">Email</div>

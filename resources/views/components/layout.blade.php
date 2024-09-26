@@ -8,6 +8,8 @@
 
     @vite('resources/css/app.css')
     <script defer src="https://cdnjs.cloudflare.com/ajax/libs/alpinejs/3.13.0/cdn.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+
 
 </head>
 <body class="bg-gray-100">

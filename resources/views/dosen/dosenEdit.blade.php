@@ -28,19 +28,19 @@
 
     <!-- Add Class Button -->
     <x-addbutton-modalform>
-        <x-slot:buttonText>Add New Lecturer</x-slot:buttonText>
+        <x-slot:buttonText>Tambah Dosen Baru</x-slot:buttonText>
         <x-slot:route>{{ route('dosen.add')}}</x-slot:route>
 
         <div class="mb-4">
-            <label for="name" class="block text-gray-700 text-sm font-bold mb-2">Lecture Name:</label>
+            <label for="name" class="block text-gray-700 text-sm font-bold mb-2">Nama Dosen:</label>
             <input type="text" name="name" id="name" required class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
         </div>
         <div class="mb-4">
-            <label for="kode_dosen" class="block text-gray-700 text-sm font-bold mb-2">Lecture Code:</label>
+            <label for="kode_dosen" class="block text-gray-700 text-sm font-bold mb-2">Kode Dosen:</label>
             <input type="number" name="kode_dosen" id="kode_dosen" required class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
         </div>
         <div class="mb-4">
-            <label for="nip" class="block text-gray-700 text-sm font-bold mb-2">Lecture NIP:</label>
+            <label for="nip" class="block text-gray-700 text-sm font-bold mb-2">NIP:</label>
             <input type="number" name="nip" id="nip" required class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
         </div>
     </x-addbutton-modalform>
@@ -49,13 +49,13 @@
     <div x-data="{ showDeleteModal: false, dosenToDelete: null }" class="px-4 sm:px-6 lg:px-8">
         <div class="overflow-x-auto shadow-md sm:rounded-lg">
             <header class="p-6 border border-gray-200 bg-slate-100">
-                <h2 class="text-2xl font-semibold text-gray-900">List of Lectures</h2>
+                <h2 class="text-2xl font-semibold text-gray-900">List Dosen</h2>
                 <div class="mt-2">
-                    <p class="text-sm font-medium text-gray-600">Total Lecturers
+                    <p class="text-sm font-medium text-gray-600">Total Dosen
                         <span class="font-semibold text-gray-800">{{ count($lecturers) }}</span>
                     </p>
-                    <p class="text-sm font-medium text-gray-600">Lecturers with no classroom
-                        <span class="font-semibold text-gray-800">{{ count($lecturers->where('kelas_id', null)) ??  '0' }}</span>
+                    <p class="text-sm font-medium text-gray-600">Total Dosen Wali
+                        <span class="font-semibold text-gray-800">{{ $lecturers->whereNotNull('kelas_id')->count() }}</span>
                     </p>
                 </div>
               </header>
@@ -63,15 +63,15 @@
                 <thead class="text-xs text-gray-700 uppercase bg-slate-50">
                     <tr>
                         <th scope="col" class="px-6 py-3">No.</th>
-                        <th scope="col" class="px-6 py-3">Lecturer Code</th>
+                        <th scope="col" class="px-6 py-3">Kode Dosen</th>
                         <th scope="col" class="px-6 py-3">
-                            <div class="flex items-center justify-center">Lecturer Name</div>
+                            <div class="flex items-center justify-center">Nama Dosen</div>
                         </th>
                         <th scope="col" class="px-6 py-3">
-                            <div class="flex items-center justify-center">Lecturer NIP</div>
+                            <div class="flex items-center justify-center">NIP</div>
                         </th>
                         <th scope="col" class="px-6 py-3">
-                            <div class="flex items-center justify-center">Classroom</div>
+                            <div class="flex items-center justify-center">Kelas</div>
                         </th>
                         <th scope="col" class="px-6 py-3">
                             <div class="flex items-center justify-center">Email</div>

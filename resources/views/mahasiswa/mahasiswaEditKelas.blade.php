@@ -27,12 +27,12 @@
     <div x-data="{ showDeleteModal: false, studentToDelete: null }" class="px-4 sm:px-6 lg:px-8">
         <div class="overflow-x-auto shadow-md sm:rounded-lg">
             <header class="p-6 border-b border-t border-gray-200 bg-slate-100">
-                <h2 class="text-2xl font-semibold text-gray-900">Students in {{ $class['name'] }}</h2>
+                <h2 class="text-2xl font-semibold text-gray-900">Mahasiswa kelas {{ $class['name'] }}</h2>
                 <div class="mt-2">
-                    <p class="text-sm font-medium text-gray-600">Class Capacity
+                    <p class="text-sm font-medium text-gray-600">Kapasitas Kelas
                         <span class="font-semibold text-gray-800">{{ $class['jumlah'] }}</span>
                     </p>
-                    <p class="text-sm font-medium text-gray-600">Total Students
+                    <p class="text-sm font-medium text-gray-600">Total Mahasiswa
                         <span class="font-semibold text-gray-800">{{ count($students) }}</span>
                     </p>
                     
@@ -42,12 +42,12 @@
                 <thead class="text-xs text-gray-700 uppercase bg-slate-50">
                     <tr>
                         <th scope="col" class="px-6 py-3">No.</th>
-                        <th scope="col" class="px-6 py-3">Student NIM</th>
+                        <th scope="col" class="px-6 py-3">NIM</th>
                         <th scope="col" class="px-6 py-3">
-                            <div class="flex items-center justify-center">Student Name</div>
+                            <div class="flex items-center justify-center">Nama Mahasiswa</div>
                         </th>
                         <th scope="col" class="px-6 py-3">
-                            <div class="flex items-center justify-center">Classroom</div>
+                            <div class="flex items-center justify-center">Kelas</div>
                         </th>
                         <th scope="col" class="px-6 py-3">
                             <div class="flex items-center justify-center">Email</div>
