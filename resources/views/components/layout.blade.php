@@ -32,9 +32,7 @@
             </x-sidebar>
           
             <!-- Main Content -->
-            <main class="p-4 w-full">
-                    <!-- Main content -->     
-                
+            <main class="p-4 w-full">                
                     {{ $slot }}
             </main>
         </div>
