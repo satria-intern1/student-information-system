@@ -55,7 +55,7 @@
                     </button>
                 </a>
                 @if ($user['role'] == 'dosen' && $class != 'none')
-                <a href="{{ route('mahasiswa.editkelas') }}">
+                <a href="{{ route('mahasiswa.editkelas', $userData['kelas_id']) }}">
                     <button class="text-white bg-indigo-500 hover:bg-indigo-600 focus:ring-4 focus:outline-none focus:ring-indigo-400 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center">
                         Manajemen Kelas
                     </button>
@@ -103,7 +103,7 @@
                     {{ count($class->requestletters)}}
 
                 </h2>
-                <a href="{{ route('reqletter.index') }}">
+                <a href="{{ route('reqletter.index', $userData['kelas_id']) }}">
                     <button class="my-4 sm:mb-0 mr-2 text-white bg-indigo-500 hover:bg-indigo-600 focus:ring-4 focus:outline-none focus:ring-indigo-400 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center">
                         Lihat Permintaan
                     </button>
