@@ -40,7 +40,7 @@ class DosenController extends Controller
 
 
         return view('dosen.dosenList', [
-            'title' => 'Dashboard',
+            'title' => 'DosenList',
             'user' => $user,
             'userData' => $userData,
             'lecturers' => $lecturers,
@@ -126,7 +126,7 @@ class DosenController extends Controller
 
 
         return view('dosen.dosenEdit', [
-            'title' => 'Dashboard',
+            'title' => 'Dosen Manajemen',
             'user' => $user,
             'userData' => $userData,
             'lecturers' => $lecturers,

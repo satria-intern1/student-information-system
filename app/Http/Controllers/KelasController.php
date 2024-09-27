@@ -40,7 +40,7 @@ class KelasController extends Controller
 
 
         return view('kelas.kelasList', [
-            'title' => 'Dashboard',
+            'title' => 'Kelast List',
             'user' => $user,
             'userData' => $userData,
             'classes' => $classes,
@@ -57,7 +57,7 @@ class KelasController extends Controller
 
 
         return view('kelas.kelasEdit', [
-            'title' => 'Dashboard',
+            'title' => 'Kelas Manajemen',
             'user' => $user,
             'userData' => $userData,
             'classes' => $classes,
@@ -90,7 +90,7 @@ class KelasController extends Controller
         $lecturers = Dosen::all();
 
         return view('kelas.kelasFill', [
-            'title' => 'Dashboard',
+            'title' => 'Isi Kelas',
             'user' => $user,
             'userData' => $userData,
             'class' => $class,

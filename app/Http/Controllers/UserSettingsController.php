@@ -34,7 +34,7 @@ class UserSettingsController extends Controller
         
 
         return view('user.settings', [
-            'title' => 'Dashboard',
+            'title' => 'Setting',
             'user' => $user,
             'userData' => $userData,
         ]);

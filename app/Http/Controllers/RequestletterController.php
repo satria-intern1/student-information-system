@@ -23,7 +23,7 @@ class RequestletterController extends Controller
         $reqLetters = Requestletter::where('kelas_id', $kelasId)->get();
 
         return view('reqletter.reqList', [
-            'title' => 'Dashboard',
+            'title' => 'Permintaan Edit List',
             'user' => $user,
             'userData' => $userData,
             'className' => $className,
@@ -44,7 +44,7 @@ class RequestletterController extends Controller
         $isApproved = $userData['edit'];
 
         return view('reqletter.reqForm', [
-            'title' => 'Dashboard',
+            'title' => 'Form Pengajuan Edit',
             'user' => $user,
             'userData' => $userData,
             'isMadeReq' => $isMadeReq,

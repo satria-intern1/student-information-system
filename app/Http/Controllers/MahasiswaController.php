@@ -41,7 +41,7 @@ class MahasiswaController extends Controller
 
 
         return view('mahasiswa.mahasiswaList', [
-            'title' => 'Dashboard',
+            'title' => 'Mahasiswa List',
             'user' => $user,
             'userData' => $userData,
             'students' => $students,
@@ -127,7 +127,7 @@ class MahasiswaController extends Controller
 
 
         return view('mahasiswa.mahasiswaManage', [
-            'title' => 'Dashboard',
+            'title' => 'Mahasiswa Manajemen',
             'user' => $user,
             'userData' => $userData,
             'students' => $studentsClass,
@@ -146,7 +146,7 @@ class MahasiswaController extends Controller
         $class = Kelas::with('mahasiswas')->findOrFail($id);
 
         return view('mahasiswa.mahasiswaEditKelas', [
-            'title' => 'Dashboard',
+            'title' => 'Kelas '. $userData->kelas->name,
             'user' => $user,
             'userData' => $userData,
             'students' => $class->mahasiswas,
