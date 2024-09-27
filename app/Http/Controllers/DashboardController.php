@@ -95,7 +95,7 @@ class DashboardController extends Controller
             $userData = null;
         }       
         
-        return view('profil', [
+        return view('profile', [
             'title' => 'Profil User',
             'user' => $user,
             'userData' => $userData,

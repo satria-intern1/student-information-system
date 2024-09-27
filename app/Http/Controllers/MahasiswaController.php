@@ -234,7 +234,7 @@ class MahasiswaController extends Controller
         $userData = $user->mahasiswa;
         
         return view('mahasiswa.mahasiswaProfil', [
-            'title' => 'Dashboard',
+            'title' => 'Profil',
             'user' => $user,
             'userData' => $userData,
         ]);
