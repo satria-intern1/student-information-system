@@ -49,13 +49,13 @@
                 <h2 class=" block text-2xl leading-tight font-medium text-black">Tidak Terdaftar</h2>
                 @endif
 
-                <a href="">
+                <a href="{{route('kelas.list')}}">
                     <button class="my-4 sm:mb-0 mr-2 text-white bg-indigo-500 hover:bg-indigo-600 focus:ring-4 focus:outline-none focus:ring-indigo-400 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center">
                         Lihat Semua Kelas
                     </button>
                 </a>
                 @if ($user['role'] == 'dosen' && $class != 'none')
-                <a href="">
+                <a href="{{ route('mahasiswa.editkelas') }}">
                     <button class="text-white bg-indigo-500 hover:bg-indigo-600 focus:ring-4 focus:outline-none focus:ring-indigo-400 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center">
                         Manajemen Kelas
                     </button>
@@ -81,12 +81,12 @@
                     @endif
 
                 </h2>
-                <a href="">
+                <a href="{{ route('mahasiswa.getProfile') }}">
                     <button class="my-4 sm:mb-0 mr-2 text-white bg-indigo-500 hover:bg-indigo-600 focus:ring-4 focus:outline-none focus:ring-indigo-400 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center">
                         Edit Profil
                     </button>
                 </a>
-                <a href="">
+                <a href="{{ route('reqletter.form') }}">
                     <button class="text-white bg-indigo-500 hover:bg-indigo-600 focus:ring-4 focus:outline-none focus:ring-indigo-400 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center">
                         Buat Pengajuan
                     </button>
@@ -103,7 +103,7 @@
                     {{ count($class->requestletters)}}
 
                 </h2>
-                <a href="">
+                <a href="{{ route('reqletter.index') }}">
                     <button class="my-4 sm:mb-0 mr-2 text-white bg-indigo-500 hover:bg-indigo-600 focus:ring-4 focus:outline-none focus:ring-indigo-400 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center">
                         Lihat Permintaan
                     </button>
@@ -136,7 +136,7 @@
                     <p><span class="font-semibold">Seluruh Total Kapasitas:</span> {{$classData['totalKapasitas']}}</p>
                 </div>
     
-                <a href="">
+                <a href="{{ route('kelas.edit') }}">
                     <button class="my-1 sm:mb-0 mr-2 text-white bg-indigo-500 hover:bg-indigo-600 focus:ring-4 focus:outline-none focus:ring-indigo-400 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center">
                         Manajemen Kelas
                     </button>
@@ -154,7 +154,7 @@
 
                 </div>
     
-                <a href="">
+                <a href="{{ route('dosen.edit') }}">
                     <button class="my-1 sm:mb-0 mr-2 text-white bg-indigo-500 hover:bg-indigo-600 focus:ring-4 focus:outline-none focus:ring-indigo-400 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center">
                         Manajemen Dosen
                     </button>
@@ -172,7 +172,7 @@
 
                 </div>
     
-                <a href="">
+                <a href="{{ route('mahasiswa.displayForm') }}">
                     <button class="my-1 sm:mb-0 mr-2 text-white bg-indigo-500 hover:bg-indigo-600 focus:ring-4 focus:outline-none focus:ring-indigo-400 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center">
                         Manajemen Mahasiswa
                     </button>

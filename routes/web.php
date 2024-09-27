@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Mahasiswa;
 use App\Models\Requestletter;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DosenController;
@@ -7,8 +8,8 @@ use App\Http\Controllers\KelasController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\MahasiswaController;
+use App\Http\Controllers\UserSettingsController;
 use App\Http\Controllers\RequestletterController;
-use App\Models\Mahasiswa;
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
 /*
@@ -81,7 +82,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/request-edit-form', [RequestletterController::class, 'create'])->name('reqletter.form')->middleware('role:mahasiswa');
     Route::post('/request-edit-form', [RequestletterController::class, 'store'])->name('reqCreate')->middleware('role:mahasiswa');
 
-    
+    Route::get('/settings', [UserSettingsController::class, 'showSettingsForm'])->name('settings');
+    Route::put('/settings/username', [UserSettingsController::class, 'updateUsername'])->name('settings.update.username');
+    Route::put('/settings/password', [UserSettingsController::class, 'updatePassword'])->name('settings.update.password');
 
 
 });

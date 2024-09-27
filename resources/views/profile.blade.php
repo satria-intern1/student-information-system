@@ -9,6 +9,8 @@
 
     <div class="max-w-2xl mx-auto bg-white rounded-xl shadow-md overflow-hidden md:max-w-2xl m-4">
         <div class="p-8">
+            <h2 class="text-2xl font-bold mb-4"> Profil Pribadi</h2>
+
            <div class="relative z-0 w-full mb-5 group">
                <input type="number" id="studentNim" value="{{ $userData['kode_dosen'] }}"
                    disabled class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer" required />

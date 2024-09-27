@@ -24,6 +24,8 @@
 
     <div class="max-w-2xl mx-auto bg-white rounded-xl shadow-md overflow-hidden md:max-w-2xl m-4">
         <div class="p-8">
+            <h2 class="text-2xl font-bold mb-4"> Profil Pribadi</h2>
+
             <form x-data="{ 
                 showModal: false,
                 isEditable: {{ $userData['edit'] ? 'true' : 'false' }},
