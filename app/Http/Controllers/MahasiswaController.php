@@ -28,8 +28,8 @@ class MahasiswaController extends Controller
         $query = $request['query'];
         if ($query) {
             $students = $students
-                ->where('name', 'LIKE', "{$query}%")
-                ->orWhere('tempat_lahir', 'LIKE', "{$query}%")
+                ->where('name', 'LIKE', "%{$query}%")
+                ->orWhere('tempat_lahir', 'LIKE', "%{$query}%")
                 ->orWhere('nim', 'LIKE', "{$query}%");
         }
 

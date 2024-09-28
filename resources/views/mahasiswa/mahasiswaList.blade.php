@@ -23,7 +23,7 @@
                 </div>
                 <x-search-bar>
                     <x-slot:route>{{ route('mahasiswa.list') }}</x-slot>
-                    <x-slot:placeholder>Search</x-slot>
+                    <x-slot:placeholder>Cari nama, nim, tempat lahir </x-slot>
                 </x-search-bar>
               </header>
               

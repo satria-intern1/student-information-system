@@ -14,11 +14,26 @@ class DosenController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         //
         $user = auth()->user();
         $userData = null;
+
+        $lecturers = Dosen::with('kelas');
+
+        $totalLecturer = $lecturers->count();
+        $lecturersWClass = Dosen::whereNull('kelas_id')->count();
+
+        $query = $request['query'];
+        if ($query) {
+            $lecturers
+                ->where('name', 'LIKE', "%{$query}%")
+                ->orWhere('kode_dosen', 'LIKE', "{$query}%")
+                ->orWhere('nip', 'LIKE', "{$query}%");
+        }
+
+        $lecturers = $lecturers->get();
 
         switch ($user->role) {
             case 'kaprodi':
@@ -35,7 +50,6 @@ class DosenController extends Controller
         }       
 
 
-        $lecturers = Dosen::all();
 
 
 
@@ -44,6 +58,8 @@ class DosenController extends Controller
             'user' => $user,
             'userData' => $userData,
             'lecturers' => $lecturers,
+            'totalLecturer' => $totalLecturer,
+            'lecturersWClass' => $lecturersWClass
         ]);
 
 

@@ -8,34 +8,24 @@
     @endif
     
 
-    {{-- dosen info
-   <div class=" max-w-md bg-white rounded-2xl shadow-md  m-4">
-        <div class="px-4 py-3">
-                <div class="text-md uppercase tracking-wide  text-blue-600 font-semibold">
-                    Lecturer Information
-                </div>
-                <p class="text-sm font-medium text-gray-600">Total Lecturer 
-                    <span class="font-semibold text-gray-800">{{ count($lecturers) }}</span>
-                </p>
-                <p class="text-sm font-medium text-gray-600">Lecturer with no classroom
-                    <span class="font-semibold text-gray-800">{{ count($lecturers->where('kelas_id', null)) ??  '0' }}</span>
-                </p>
-        </div>
-    </div> --}}
         
     <!-- Table Container -->
     <div class="px-4 sm:px-6 lg:px-8">
-        <div class="overflow-x-auto shadow-md sm:rounded-lg">
+        <div class="overflow-x-auto shadow-md sm:rounded-lg"> 
             <header class="p-6 border-b border-t border-gray-200 bg-slate-100">
                 <h2 class="text-2xl font-semibold text-gray-900">List Dosen</h2>
                 <div class="mt-2">
                     <p class="text-sm font-medium text-gray-600">Total Dosen
-                        <span class="font-semibold text-gray-800">{{ count($lecturers) }}</span>
+                        <span class="font-semibold text-gray-800">{{ $totalLecturer }}</span>
                     </p>
                     <p class="text-sm font-medium text-gray-600">Total Dosen Wali
-                        <span class="font-semibold text-gray-800">{{ count($lecturers->whereNotNull('kelas_id'))}}</span>
+                        <span class="font-semibold text-gray-800">{{ $lecturersWClass}}</span>
                     </p>
                 </div>
+                <x-search-bar>
+                    <x-slot:route>{{ route('dosen.list') }}</x-slot>
+                    <x-slot:placeholder>Cari nama, kode dosen, nip</x-slot>
+                </x-search-bar>
               </header>
             <table class="w-full text-sm text-left text-gray-500">
                 <thead class="text-xs text-gray-700 uppercase bg-slate-50">
