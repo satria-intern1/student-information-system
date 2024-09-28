@@ -15,13 +15,18 @@
                 <h2 class="text-2xl font-semibold text-gray-900">List Mahasiswa</h2>
                 <div class="mt-2">
                     <p class="text-sm font-medium text-gray-600">Total Mahasiswa
-                        <span class="font-semibold text-gray-800">{{ count($students) }}</span>
+                        <span class="font-semibold text-gray-800">{{ $totalStudent }}</span>
                     </p>
                     <p class="text-sm font-medium text-gray-600">Mahasiswa tanpa kelas
-                        <span class="font-semibold text-gray-800">{{ count($students->where('kelas_id', null)) ??  '0' }}</span>
+                        <span class="font-semibold text-gray-800">{{ $studentsNoClass }}</span>
                     </p>
                 </div>
+                <x-search-bar>
+                    <x-slot:route>{{ route('mahasiswa.list') }}</x-slot>
+                    <x-slot:placeholder>Search</x-slot>
+                </x-search-bar>
               </header>
+              
             <table class="w-full text-sm text-left text-gray-500">
                 <thead class="text-xs text-gray-700 uppercase bg-slate-50 ">
                     <tr>
@@ -45,7 +50,10 @@
                     </tr>
                 </thead>
                 <tbody>
+                    @if($students->isNotEmpty())
+
                     @foreach ($students as $student)
+                     
                     <tr class="bg-white border-b hover:bg-slate-50">
                         <td class="px-6 py-4">{{ $loop->iteration }}</td>
                         <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
@@ -78,7 +86,13 @@
                         </td>
                     </tr>
                     @endforeach
+                    
+                    @else
+                        <p class="mx-auto font-medium text-md">Tidak ada hasil pencarian</p>
+                    @endif
                 </tbody>
+
+
             </table>
         </div>
 </x-layout>

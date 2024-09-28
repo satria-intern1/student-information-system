@@ -146,13 +146,19 @@ class KelasController extends Controller
             'name' => ['required', 'min:1'],
             'jumlah' => ['required', 'integer', 'min:1'],
         ]);
-    
+
         $kelas = Kelas::findOrFail($id);
+
+        $jumlahMahasiswa = Mahasiswa::where('kelas_id', $id)->count();
+        if ($validatedData['jumlah'] < $jumlahMahasiswa) {
+            return back()->with('error', 'Jumlah kelas tidak boleh kurang dari jumlah mahasiswa yang ada di kelas ini');
+        }
+
         $kelas->update([
             'name' => $validatedData['name'],
             'jumlah' => $validatedData['jumlah'],
         ]);
-    
+
         return back()->with('success', 'Class updated successfully');
     }
 

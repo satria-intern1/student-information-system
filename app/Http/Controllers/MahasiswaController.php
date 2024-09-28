@@ -15,14 +15,27 @@ class MahasiswaController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         //
         $user = auth()->user();
         $userData = null;
-        
+        $students = Mahasiswa::with('kelas');
 
-        $students = Mahasiswa::with('kelas')->get();
+        $totalStudent = $students->count();
+        $studentsNoClass = Mahasiswa::whereNull('kelas_id')->count();
+
+        $query = $request['query'];
+        if ($query) {
+            $students = $students
+                ->where('name', 'LIKE', "{$query}%")
+                ->orWhere('tempat_lahir', 'LIKE', "{$query}%")
+                ->orWhere('nim', 'LIKE', "{$query}%");
+        }
+
+        $students = $students->get();
+
+        
 
         //retrieve data based on role
         switch ($user->role) {
@@ -31,9 +44,6 @@ class MahasiswaController extends Controller
                 break;
             case 'dosen':
                 $userData = $user->dosen;
-                break;
-            case 'mahasiswa':
-                $userData = $user->mahasiswa;
                 break;
             default:
             $userData = null;
@@ -45,6 +55,8 @@ class MahasiswaController extends Controller
             'user' => $user,
             'userData' => $userData,
             'students' => $students,
+            'totalStudent' => $totalStudent,
+            'studentsNoClass' => $studentsNoClass
         ]);
     }
 
